@@ -1,0 +1,13 @@
+server:
+  port: 8880
+nacos:
+  service-address: 127.0.0.1
+  port: 8848
+dubbo:
+  registry:
+    address: nacos://${nacos.service-address}:${nacos.port}
+  protocol:
+    name: dubbo
+    port: 20881
+  scan:
+    base-packages: cn.raysonblog.*.service.impl

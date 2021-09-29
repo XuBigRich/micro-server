@@ -1,0 +1,1 @@
+protoc ./StorageService.proto --java_out=../../../../

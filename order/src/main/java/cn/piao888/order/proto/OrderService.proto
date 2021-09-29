@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "cn.piao888.order.dubbo";
+option java_outer_classname = "OrderServiceProto";
+
+service StorageService {
+  rpc deduct(HelloRequest) returns (empty){}
+}
+message HelloRequest {
+  string name = 1;
+  int32 count = 2;
+}
+
+message empty{
+
+}
+
+service OrderService {
+  rpc  create(OrderDTO)  returns (OrderDTO) {}
+}
+
+message OrderDTO{
+  string userId = 1;
+  string commodityCode = 2;
+  int32 orderCount = 3;
+}
+
+service AccountService {
+  rpc debit(PayDTO) returns (empty){}
+}
+message PayDTO{
+  string userId = 1;
+  string money = 2;
+}
