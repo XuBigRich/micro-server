@@ -14,6 +14,5 @@ public class AccountServiceImpl extends AccountService {
 
     @Override
     public void debit(RpcController controller, PayDTO request, RpcCallback<empty> done) {
-
     }
 }
