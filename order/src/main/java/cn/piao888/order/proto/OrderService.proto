@@ -3,14 +3,8 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "cn.piao888.order.dubbo";
 option java_outer_classname = "OrderServiceProto";
+option java_generic_services = true;
 
-service StorageService {
-  rpc deduct(HelloRequest) returns (empty){}
-}
-message HelloRequest {
-  string name = 1;
-  int32 count = 2;
-}
 
 message empty{
 

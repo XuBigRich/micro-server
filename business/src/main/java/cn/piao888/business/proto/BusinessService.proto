@@ -1,14 +1,20 @@
 syntax = "proto3"; // 声明了protobuf的版本
 
 option java_multiple_files = true;
-option java_package = "cn.piao888.account.dubbo";
-option java_outer_classname = "AccountServiceProto";
+option java_package = "cn.piao888.business.dubbo";
+option java_outer_classname = "BusinessServiceProto";
 option objc_class_prefix = "DEMOSRV";
 //定义下面的选项，表示生成service服务类和rpc方法描述，默认不生成
 option java_generic_services = true;
 
 package dubbo;  // 声明了代码所在的包
-
+service StorageService {
+  rpc deduct(StorageRequest) returns (empty){}
+}
+message StorageRequest {
+  string name = 1;
+  int32 count = 2;
+}
 
 message empty{
 
@@ -24,10 +30,3 @@ message OrderDTO{
   int32 orderCount = 3;
 }
 
-service AccountService {
-  rpc debit(PayDTO) returns (empty){}
-}
-message PayDTO{
-  string userId = 1;
-  string money = 2;
-}
