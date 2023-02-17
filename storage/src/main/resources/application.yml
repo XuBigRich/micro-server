@@ -1,14 +1,18 @@
 server:
-  port: 8880
+  port: 8881
 
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/seata?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/wf?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
-    password: root
+    password: rr998xhz1997
   application:
-    name: dubbo-storage-example
+    name: storage
 
 dubbo:
   application:
@@ -30,19 +34,27 @@ dubbo:
 
 seata:
   enabled: true
-  application-id: storage-seata-example
+  application-id:  ${spring.application.name}
   tx-service-group: storage-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  service:
+    vgroup-mapping:
+      storage-service-seata-service-group: default
+  #      规范的通过 Nacos获取seata-server服务信息
+  config:
+    type: nacos
+    nacos:
+#      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+    file:
+      name:
   registry:
     type: nacos
     nacos:
       server-addr: localhost:8848
-      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
-      cluster: default
-  config:
-    type: nacos
-    nacos:
-      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
-      server-addr: localhost:8848
       group: SEATA_GROUP
+      application: seata-server
+  #      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
+  #      cluster: default
   enable-auto-data-source-proxy: true
   data-source-proxy-mode: AT

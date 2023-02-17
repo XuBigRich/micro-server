@@ -1,0 +1,44 @@
+# 正确配置
+seata:
+  enabled: true
+  application-id:  ${spring.application.name}
+  tx-service-group: storage-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  service:
+    vgroup-mapping:
+      storage-service-seata-service-group: default
+  # 规范的通过 Nacos获取seata-server服务信息 ，这样可以省略 像springboot中 一样配置grouplist.default: 127.0.0.1:8091，由seata客户端通过springcloud自动寻找 seata服务端
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      application: seata-server
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
+
+-----------------------------请不要配置config----------------
+
+seata:
+  enabled: true
+  application-id:  ${spring.application.name}
+  tx-service-group: storage-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  service:
+    vgroup-mapping:
+      storage-service-seata-service-group: default
+  # 规范的通过 Nacos获取seata-server服务信息 ，这样可以省略 像springboot中 一样配置grouplist.default: 127.0.0.1:8091，由seata客户端通过springcloud自动寻找 seata服务端
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      group: SEATA_GROUP
+      application: seata-server
+  enable-auto-data-source-proxy: true
+  data-source-proxy-mode: AT
+ ##### # 请不要在这里添加 错误的namespace 否则会造成  can not get cluster name in registry config 失效 ###########
+  config:
+     nacos:
+       group: SEATA_GROUP
+       server-addr: localhost:8848
+       namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
+
+   这里的config 可以获取到 grouplist.default的 映射信息,可以选择是从nacos中获取还是从file中获取

@@ -1,13 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.17'
-    }
-}
 plugins {
-    id 'com.google.protobuf' version '0.8.17'
     id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
@@ -26,20 +17,8 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.20'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
-protobuf  {
-    generatedFilesBaseDir = "$projectDir/src/"
-}
-sourceSets {
-    main {
-        proto {
-            // 除了默认的'src/main/proto'目录新增proto文件的方法
-            srcDir 'src/main/java/cn/piao888/order/proto'
-            include '*.proto'
-        }
-        java{
-        }
-    }
-}
+
+
 test {
     useJUnitPlatform()
 }

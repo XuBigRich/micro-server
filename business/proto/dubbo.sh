@@ -1,1 +1,0 @@
-protoc ./BusinessService.proto --java_out=../../../../

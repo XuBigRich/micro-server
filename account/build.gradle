@@ -1,21 +1,81 @@
+/*buildscript {
+    repositories {
+        mavenLocal()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.14'
+    }
+}*/
+
 plugins {
+    id "java"
     id 'org.springframework.boot' version '2.5.5'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//    id 'com.google.protobuf' version '0.8.14'
 }
 
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+/*sourceSets {
+    main {
+        proto {
+            srcDir 'src/main/proto'
+            include '*.proto'
+        }
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src/main/grpc'
+        }
+    }
+}*/
+/*sourceSets {
+    main {
+        proto {
+            // 除了默认的'src/main/proto'目录新增proto文件的方法
+            srcDir 'src/main/java/cn/piao888/order/proto'
+            include '*.proto'
+        }
+        java {
+        }
+    }
+}
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.21.12'
+    }
+    plugins {
+        grpc {
+            artifact = 'org.apache.dubbo:dubbo-compiler:0.0.4.1-SNAPSHOT'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins { task ->
+            task.builtins {
+                java {} //java文件
+                cpp {}
+            }
+            task.plugins {
+                grpc {}
+            }
+        }
+        ofSourceSet('main')
+    }
+    generatedFilesBaseDir = "$projectDir/src/"
+}*/
 repositories {
     mavenCentral()
     mavenLocal()
 }
 
 dependencies {
-    implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+/*    implementation 'com.google.protobuf:protobuf-java:3.19.4'
+    implementation 'com.google.protobuf:protoc:3.21.12'*/
+    implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
 }
 
 test {

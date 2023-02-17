@@ -1,1 +1,0 @@
-protoc ./AccountService.proto --java_out=../../../../

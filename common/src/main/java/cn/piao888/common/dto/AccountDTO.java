@@ -13,19 +13,11 @@ import java.math.BigDecimal;
 @Data
 public class AccountDTO implements Serializable {
 
-    private Integer id;
 
     private String userId;
 
     private BigDecimal amount;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUserId() {
         return userId;

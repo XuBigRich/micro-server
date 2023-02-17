@@ -1,2 +1,21 @@
 server:
   port: 8880
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/wf?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: root
+    password: rr998xhz1997
+  application:
+    name: order
+nacos:
+  discovery:
+    server-addr: localhost:8848
+seata:
+  application-id: ${spring.application.name}
+  tx-service-group: my_test_tx_group       # 默认值，有的版本使用 my_test_tx_group
+  service:
+    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
+      my_test_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
