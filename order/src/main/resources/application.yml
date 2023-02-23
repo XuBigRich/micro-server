@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/wf?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/micro-server?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: rr998xhz1997
   application:
@@ -11,7 +11,15 @@ spring:
 nacos:
   discovery:
     server-addr: localhost:8848
+mybatis:
+  # 搜索指定包别名
+  type-aliases-package: cn.piao888.order
+  # 配置mapper的扫描,我到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #加载全局的配置文件
+#  config-location: classpath:mapper/mybatis-config.xml
 seata:
+  #enabled: true
   application-id: ${spring.application.name}
   tx-service-group: my_test_tx_group       # 默认值，有的版本使用 my_test_tx_group
   service:
@@ -19,3 +27,7 @@ seata:
       my_test_tx_group: default
     grouplist:
       default: 127.0.0.1:8091
+dubbo:
+  application:
+    id: dubbo-order-example
+    name: dubbo-order-example

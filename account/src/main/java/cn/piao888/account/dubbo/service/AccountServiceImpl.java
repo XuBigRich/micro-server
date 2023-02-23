@@ -6,12 +6,14 @@ import cn.piao888.common.dubbo.AccountDubboService;
 import cn.piao888.common.response.ObjectResponse;
 import com.google.protobuf.RpcCallback;
 import com.google.protobuf.RpcController;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author 许鸿志
  * @since 2021/9/29
  */
+@DubboService
 public class AccountServiceImpl implements AccountDubboService {
     @Autowired
     private ITAccountService accountService;

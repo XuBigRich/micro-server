@@ -26,8 +26,6 @@ public class BusinessApplication {
 
     @Value("${nacos.discovery.server-addr}")
     private String address;
-    @Value("${nacos.discovery.group}")
-    private String group;
     @NacosInjected
     private NamingService namingService;
 
@@ -40,7 +38,7 @@ public class BusinessApplication {
 
     @PostConstruct
     public void registerService() throws NacosException {
-        namingService.registerInstance(applicationName, group,address, serverPort);
+        namingService.registerInstance(applicationName,address, serverPort);
     }
 
 }

@@ -1,0 +1,26 @@
+# 正确配置
+seata:
+  #enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: my_test_tx_group       # 默认值，有的版本使用 my_test_tx_group
+  service:
+    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
+      my_test_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+#错误示范
+seata:
+  #enabled: true
+  application-id: ${spring.application.name}
+  tx-service-group: my_test_tx_group       # 默认值，有的版本使用 my_test_tx_group
+  service:
+    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
+      my_test_tx_group: default
+    grouplist:
+      default: 127.0.0.1:8091
+###########如果像上面一样配置了grouplist.default 就不要再配置 registry了##########
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8091
+      group: SEATA_GROUP

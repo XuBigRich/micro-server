@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/wf?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://127.0.0.1:3306/micro-server?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: rr998xhz1997
   application:
@@ -25,8 +25,8 @@ dubbo:
     name: dubbo
     port: -1
   registry:
+    id: dubbo-business-example-registry
     address: nacos://127.0.0.1:8848
 nacos:
   discovery:
     server-addr: localhost:8848
-    group: SEATA_GROUP

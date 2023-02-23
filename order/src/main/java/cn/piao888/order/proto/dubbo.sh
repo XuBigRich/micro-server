@@ -1,1 +1,0 @@
-protoc ./OrderService.proto --java_out=../../../../

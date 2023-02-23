@@ -1,6 +1,7 @@
 package cn.piao888.storage.controller;
 
 import cn.piao888.common.dto.CommodityDTO;
+import cn.piao888.common.dubbo.StorageDubboService;
 import cn.piao888.common.response.ObjectResponse;
 import cn.piao888.storage.service.ITStorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class TStorageController {
 
 
     @Autowired
-    private ITStorageService storageService;
+    private StorageDubboService storageService;
 
     /**
      * 扣减库存

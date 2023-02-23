@@ -22,7 +22,8 @@ public class OrderServiceImpl implements OrderDubboService {
 
     @Autowired
     private OrderMapper orderDAO;
-    @DubboReference(version = "1.0.0")
+//    @DubboReference(version = "1.0.0")
+    @DubboReference
     private AccountDubboService accountDubboService;
 
 

@@ -24,10 +24,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class BusinessServiceImpl implements BusinessService {
 
-    @DubboReference(version = "1.0.0")
+    @DubboReference (version = "1.0.1")
     private StorageDubboService storageDubboService;
 
-    @DubboReference(version = "1.0.0")
+    @DubboReference
     private OrderDubboService orderDubboService;
 
     boolean flag;

@@ -23,6 +23,6 @@
     <insert id="createOrder" keyProperty="id" useGeneratedKeys="true"
             parameterType="cn.piao888.order.domain.TOrder">
         insert into t_order
-        values (null, #{order.orderNo}, #{order.userId}, #{order.commodityCode}, ${order.count}, ${order.amount})
+        values (null, #{orderNo}, #{userId}, #{commodityCode}, ${count}, ${amount})
     </insert>
 </mapper>
