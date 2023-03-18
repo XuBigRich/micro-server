@@ -28,11 +28,6 @@ seata:
   #enabled: true
   application-id: ${spring.application.name}
   tx-service-group: default_tx_group      # 默认值，有的版本使用 my_test_tx_group
-  service:
-    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
-      default_tx_group: default
-    grouplist:
-      default: 127.0.0.1:8091
 nacos:
   discovery:
     server-addr: localhost:8848

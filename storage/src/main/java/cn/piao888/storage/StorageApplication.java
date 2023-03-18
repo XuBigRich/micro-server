@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 
-@SpringBootApplication(scanBasePackages = "cn.piao888.storage")
+@SpringBootApplication(scanBasePackages = "cn.piao888")
 @MapperScan({"cn.piao888.storage.mapper"})
 @EnableDubbo(scanBasePackages = "cn.piao888.storage")
 @EnableDiscoveryClient

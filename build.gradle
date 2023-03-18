@@ -9,45 +9,47 @@ ext {
     logbackVersion = '1.1.10'
 }
 subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
+    if (project.name!="common") {
+        apply plugin: 'java'
+        apply plugin: 'maven-publish'
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
 
-    configurations.all {
-        exclude group: "commons-logging", module: "commons-logging"
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-    }
-    repositories {
-        mavenCentral()
-        mavenLocal()
-        uri 'https://maven.aliyun.com/repository/public/'
-    }
-    dependencies {
-        implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
-        implementation "org.springframework.boot:spring-boot-starter:${springbootVerison}"
-        implementation 'com.alibaba.spring:spring-context-support:1.0.11'
-
-        implementation 'org.mybatis:mybatis:3.5.7'
-        implementation "com.alibaba:druid:${druidVersion}"
-        implementation 'mysql:mysql-connector-java:8.0.26'
-        implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
-
-        implementation("org.apache.dubbo:dubbo:${dubboVersion}") {
-            exclude group: 'org.springframework', module: 'spring'
+        configurations.all {
+            exclude group: "commons-logging", module: "commons-logging"
+            exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
         }
-        implementation "org.apache.dubbo:dubbo-spring-boot-starter:${dubboVersion}"
-        implementation "org.apache.dubbo:dubbo-config-spring:${dubboVersion}"
-        implementation "org.apache.dubbo:dubbo-registry-nacos:${dubboVersion}"
+        repositories {
+            mavenLocal()
+            mavenCentral()
+            uri 'https://maven.aliyun.com/repository/public/'
+        }
+        dependencies {
+            implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
+            implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+            implementation "org.springframework.boot:spring-boot-starter:${springbootVerison}"
+            implementation 'com.alibaba.spring:spring-context-support:1.0.11'
+
+            implementation 'org.mybatis:mybatis:3.5.7'
+            implementation 'mysql:mysql-connector-java:8.0.26'
+            implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
+            implementation("org.apache.dubbo:dubbo:${dubboVersion}") {
+                exclude group: 'org.springframework', module: 'spring'
+            }
+            implementation "org.apache.dubbo:dubbo-spring-boot-starter:${dubboVersion}"
+            implementation "org.apache.dubbo:dubbo-config-spring:${dubboVersion}"
+            implementation "org.apache.dubbo:dubbo-registry-nacos:${dubboVersion}"
 
 
-        implementation "io.seata:seata-spring-boot-starter:${seataVersion}"
-        implementation 'io.netty:netty-all:4.1.32.Final'
-        implementation "org.slf4j:slf4j-api:${slf4jVersion}"
-        implementation "ch.qos.logback:logback-core:${logbackVersion}"
-        implementation "ch.qos.logback:logback-classic:${logbackVersion}"
-        implementation "org.projectlombok:lombok:${lombokVersion}"
-        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+            implementation "io.seata:seata-spring-boot-starter:${seataVersion}"
+            implementation 'io.netty:netty-all:4.1.32.Final'
+            implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+            implementation "ch.qos.logback:logback-core:${logbackVersion}"
+            implementation "ch.qos.logback:logback-classic:${logbackVersion}"
+            implementation "org.projectlombok:lombok:${lombokVersion}"
+            annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        }
     }
 }
 

@@ -1,22 +1,25 @@
 plugins {
     id 'java'
     id 'maven-publish'
-    id 'org.springframework.boot' version '2.3.12.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-
+ext{
+    springbootVerison = '2.3.12.RELEASE'
+    slf4jVersion = '1.7.22'
+}
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
     implementation 'org.projectlombok:lombok:1.18.20'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
 publishing {

@@ -4,10 +4,7 @@
 <mapper namespace="cn.piao888.account.mapper.TAccountMapper">
 
     <update id="decreaseAccount">
-        UPDATE t_account
-        SET residue = residue - #{amount},
-            used    = used + #{amount}
-        WHERE user_id = #{userId};
+        update t_account set amount = amount-${amount} where user_id = #{userId}
     </update>
 
 </mapper>

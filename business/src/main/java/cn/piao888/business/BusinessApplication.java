@@ -4,17 +4,15 @@ import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.annotation.NacosProperties;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
-import com.alibaba.nacos.spring.context.annotation.EnableNacos;
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Role;
 
 import javax.annotation.PostConstruct;
 
-@SpringBootApplication
+
+@SpringBootApplication(scanBasePackages = "cn.piao888")
 @Data
 public class BusinessApplication {
 
@@ -34,11 +32,9 @@ public class BusinessApplication {
     }
 
 
-
-
     @PostConstruct
     public void registerService() throws NacosException {
-        namingService.registerInstance(applicationName,address, serverPort);
+        namingService.registerInstance(applicationName, address, serverPort);
     }
 
 }

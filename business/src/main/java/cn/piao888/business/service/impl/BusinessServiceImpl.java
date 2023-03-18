@@ -24,10 +24,10 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class BusinessServiceImpl implements BusinessService {
 
-    @DubboReference (version = "1.0.1")
+    @DubboReference (version = "1.0.1", protocol = "dubbo",timeout = 3000)
     private StorageDubboService storageDubboService;
 
-    @DubboReference
+//    @DubboReference
     private OrderDubboService orderDubboService;
 
     boolean flag;
@@ -87,20 +87,20 @@ public class BusinessServiceImpl implements BusinessService {
         orderDTO.setCommodityCode(businessDTO.getCommodityCode());
         orderDTO.setOrderCount(businessDTO.getCount());
         orderDTO.setOrderAmount(businessDTO.getAmount());
-        ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
+//        ObjectResponse<OrderDTO> response = orderDubboService.createOrder(orderDTO);
 
 //        打开注释测试事务发生异常后，全局回滚功能
         if (!flag) {
             throw new RuntimeException("测试抛异常后，分布式事务回滚！");
         }
 
-        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
-            throw new DefaultException(RspStatusEnum.FAIL);
-        }
+//        if (storageResponse.getStatus() != 200 || response.getStatus() != 200) {
+//            throw new DefaultException(RspStatusEnum.FAIL);
+//        }
 
         objectResponse.setStatus(RspStatusEnum.SUCCESS.getCode());
         objectResponse.setMessage(RspStatusEnum.SUCCESS.getMessage());
-        objectResponse.setData(response.getData());
+//        objectResponse.setData(response.getData());
         return objectResponse;
     }
 }

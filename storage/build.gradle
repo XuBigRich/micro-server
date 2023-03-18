@@ -5,8 +5,8 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
     uri 'https://maven.aliyun.com/repository/public/'
 }
 group = 'cn.piao888'
@@ -21,7 +21,6 @@ dependencyManagement {
 }
 
 dependencies {
-
     implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

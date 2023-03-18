@@ -27,6 +27,13 @@ seata:
       my_test_tx_group: default
     grouplist:
       default: 127.0.0.1:8091
+  config:
+    type: nacos
+    nacos:
+      namespace: d6d8f8e5-f986-4856-a2e8-004e60cd373e
+      server-addr: localhost:8848
+      dataId: seataServer.properties
+      group: SEATA_GROUP
 dubbo:
   application:
     id: dubbo-order-example

@@ -66,8 +66,8 @@ protobuf {
     generatedFilesBaseDir = "$projectDir/src/"
 }*/
 repositories {
-    mavenCentral()
     mavenLocal()
+    mavenCentral()
 }
 
 dependencies {

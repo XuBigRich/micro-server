@@ -9,15 +9,39 @@ spring:
   application:
     name: business
 
+#seata:
+#  #enabled: true
+#  application-id: ${spring.application.name}
+#  tx-service-group: default_tx_group      # 默认值，有的版本使用 my_test_tx_group
+#  service:
+#    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
+#      default_tx_group: default
+#    grouplist:
+#      default: 127.0.0.1:8091
+#  config:
+#    type: nacos
+#    nacos:
+#      namespace: d6d8f8e5-f986-4856-a2e8-004e60cd373e
+#      server-addr: localhost:8848
+#      dataId: seataServer.properties
+#      group: SEATA_GROUP
 seata:
-  #enabled: true
-  application-id: ${spring.application.name}
-  tx-service-group: default_tx_group      # 默认值，有的版本使用 my_test_tx_group
-  service:
-    vgroupMapping: # 这里使用 vgroupMapping 和 vgroup-mapping 都可以
-      default_tx_group: default
-    grouplist:
-      default: 127.0.0.1:8091
+  enabled: true
+  application-id: business-seata-example
+  tx-service-group: business-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
+  registry:
+    type: nacos
+    nacos:
+      server-addr: localhost:8848
+      #      namespace: d6d8f8e5-f986-4856-a2e8-004e60cd373e
+      cluster: default
+  config:
+    type: nacos
+    nacos:
+      namespace: d6d8f8e5-f986-4856-a2e8-004e60cd373e
+      server-addr: localhost:8848
+      dataId: seataServer.properties
+      group: SEATA_GROUP
 dubbo:
   application:
     name: dubbo-springboot-demo-provider

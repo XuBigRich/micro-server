@@ -8,6 +8,8 @@ import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
 import cn.piao888.order.domain.TOrder;
 import cn.piao888.order.mapper.OrderMapper;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import java.util.UUID;
  * @author 许鸿志
  * @since 2021/9/30
  */
+@Slf4j
 public class OrderServiceImpl implements OrderDubboService {
 
     @Autowired
@@ -29,6 +32,7 @@ public class OrderServiceImpl implements OrderDubboService {
 
     @Override
     public ObjectResponse<OrderDTO> createOrder(cn.piao888.common.dto.OrderDTO orderDTO) {
+        log.info("开始全局事务，XID = " + RootContext.getXID());
         ObjectResponse<OrderDTO> response = new ObjectResponse<>();
         //扣减用户账户
         AccountDTO accountDTO = new AccountDTO();
