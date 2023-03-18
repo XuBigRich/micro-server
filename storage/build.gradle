@@ -26,6 +26,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.7.RELEASE"
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2.2.7.RELEASE'
+    implementation 'org.apache.commons:commons-lang3:3.5'
 }
 
 test {
