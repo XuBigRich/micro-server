@@ -7,9 +7,10 @@ plugins {
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
-ext{
+ext {
     springbootVerison = '2.3.12.RELEASE'
     slf4jVersion = '1.7.22'
+    fastjsonVersion = "1.2.75"
 }
 repositories {
     mavenLocal()
@@ -19,6 +20,8 @@ repositories {
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    implementation "com.alibaba:fastjson:${fastjsonVersion}"
     implementation 'org.projectlombok:lombok:1.18.20'
 
 }

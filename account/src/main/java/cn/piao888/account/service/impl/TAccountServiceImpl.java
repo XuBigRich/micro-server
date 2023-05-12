@@ -5,6 +5,7 @@ import cn.piao888.account.service.ITAccountService;
 import cn.piao888.common.dto.AccountDTO;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
+import cn.piao888.common.utils.SessionUtil;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class TAccountServiceImpl implements ITAccountService {
     @Override
     public ObjectResponse decreaseAccount(AccountDTO accountDTO) {
         log.info("开始全局事务，XID = " + RootContext.getXID());
-        int account = tAccountMapper.decreaseAccount(accountDTO.getUserId(), accountDTO.getAmount());
+
+        int account = tAccountMapper.decreaseAccount(SessionUtil.get().getId(), accountDTO.getAmount());
         ObjectResponse<Object> response = new ObjectResponse<>();
         if (account > 0) {
             response.setStatus(RspStatusEnum.SUCCESS.getCode());

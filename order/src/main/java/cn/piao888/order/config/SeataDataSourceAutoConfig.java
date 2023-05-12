@@ -65,7 +65,7 @@ public class SeataDataSourceAutoConfig {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:/mapper/*.xml"));
+                .getResources("classpath:mapper/*Mapper.xml"));
         return factoryBean.getObject();
     }
 }

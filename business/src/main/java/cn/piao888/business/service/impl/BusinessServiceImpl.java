@@ -27,7 +27,7 @@ public class BusinessServiceImpl implements BusinessService {
     @DubboReference (version = "1.0.1", protocol = "dubbo",timeout = 3000)
     private StorageDubboService storageDubboService;
 
-//    @DubboReference
+    @DubboReference
     private OrderDubboService orderDubboService;
 
     boolean flag;
@@ -49,7 +49,6 @@ public class BusinessServiceImpl implements BusinessService {
         ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUserId(businessDTO.getUserId());
         orderDTO.setCommodityCode(businessDTO.getCommodityCode());
         orderDTO.setOrderCount(businessDTO.getCount());
         orderDTO.setOrderAmount(businessDTO.getAmount());
@@ -83,7 +82,6 @@ public class BusinessServiceImpl implements BusinessService {
         ObjectResponse storageResponse = storageDubboService.decreaseStorage(commodityDTO);
         //2、创建订单
         OrderDTO orderDTO = new OrderDTO();
-        orderDTO.setUserId(businessDTO.getUserId());
         orderDTO.setCommodityCode(businessDTO.getCommodityCode());
         orderDTO.setOrderCount(businessDTO.getCount());
         orderDTO.setOrderAmount(businessDTO.getAmount());

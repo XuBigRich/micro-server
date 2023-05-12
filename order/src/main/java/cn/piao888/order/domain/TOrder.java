@@ -5,17 +5,20 @@ package cn.piao888.order.domain;
  * <p>
  *
  * </p>
- *
+ * <p>
  * * @author lidong
+ *
  * @since 2019-09-04
  */
-public class TOrder  {
+public class TOrder {
 
     private static final long serialVersionUID = 1L;
 
     private Integer id;
     private String orderNo;
-    private String userId;
+
+
+    private Long userId;
     private String commodityCode;
     private Integer count;
     private Double amount;
@@ -37,11 +40,11 @@ public class TOrder  {
         this.orderNo = orderNo;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -68,7 +71,6 @@ public class TOrder  {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
 
 
     @Override

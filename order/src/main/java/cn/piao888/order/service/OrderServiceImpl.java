@@ -6,10 +6,12 @@ import cn.piao888.common.dubbo.AccountDubboService;
 import cn.piao888.common.dubbo.OrderDubboService;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
+import cn.piao888.common.utils.SessionUtil;
 import cn.piao888.order.domain.TOrder;
 import cn.piao888.order.mapper.OrderMapper;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.manager.util.SessionUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,11 @@ public class OrderServiceImpl implements OrderDubboService {
 
 
     @Override
-    public ObjectResponse<OrderDTO> createOrder(cn.piao888.common.dto.OrderDTO orderDTO) {
+    public ObjectResponse<OrderDTO> createOrder(OrderDTO orderDTO) {
         log.info("开始全局事务，XID = " + RootContext.getXID());
         ObjectResponse<OrderDTO> response = new ObjectResponse<>();
         //扣减用户账户
         AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setUserId(orderDTO.getUserId());
         accountDTO.setAmount(orderDTO.getOrderAmount());
         ObjectResponse objectResponse = accountDubboService.decreaseAccount(accountDTO);
 
@@ -45,6 +46,7 @@ public class OrderServiceImpl implements OrderDubboService {
         //生成订单
         TOrder tOrder = new TOrder();
         BeanUtils.copyProperties(orderDTO, tOrder);
+        tOrder.setUserId(SessionUtil.get().getId());
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
         try {

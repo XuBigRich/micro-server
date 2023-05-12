@@ -17,5 +17,5 @@ import java.math.BigDecimal;
 @Mapper
 public interface TAccountMapper {
 
-    int decreaseAccount(@Param("userId") String userId, @Param("amount") BigDecimal amount);
+    int decreaseAccount(@Param("userId") Long userId, @Param("amount") BigDecimal amount);
 }

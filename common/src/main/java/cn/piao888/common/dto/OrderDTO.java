@@ -15,8 +15,6 @@ public class OrderDTO implements Serializable {
 
     private String orderNo;
 
-    private String userId;
-
     private String commodityCode;
 
     private Integer orderCount;
@@ -29,14 +27,6 @@ public class OrderDTO implements Serializable {
 
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getCommodityCode() {

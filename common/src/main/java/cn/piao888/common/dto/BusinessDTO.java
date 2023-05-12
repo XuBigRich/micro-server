@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 @Data
 public class BusinessDTO implements Serializable {
 
-    private String userId;
 
     private String commodityCode;
 
@@ -23,13 +22,6 @@ public class BusinessDTO implements Serializable {
 
     private BigDecimal amount;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getCommodityCode() {
         return commodityCode;
