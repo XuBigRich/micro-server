@@ -28,4 +28,5 @@ public interface SecurityConstants {
      */
     String REQUEST_DATE_HEADER = "x-requestdate-header";
 
+    String USER_INFO = "user-info";
 }

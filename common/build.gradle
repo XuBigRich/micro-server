@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     implementation "com.alibaba:fastjson:${fastjsonVersion}"
     implementation 'org.projectlombok:lombok:1.18.20'
-
+    implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
 }
 publishing {
     /*

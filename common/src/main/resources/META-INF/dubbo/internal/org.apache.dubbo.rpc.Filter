@@ -1,0 +1,3 @@
+userInfoConsumerFilter=cn.piao888.common.filter.UserInfoProviderFilter
+userInfoProviderFilter=cn.piao888.common.filter.UserInfoConsumerFilter
+
