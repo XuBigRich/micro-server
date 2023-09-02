@@ -17,14 +17,14 @@ import org.springframework.stereotype.Service;
 
 /**
  * @Author: lidong
- * @Description  Dubbo业务发起方逻辑
+ * @Description Dubbo业务发起方逻辑
  * @Date Created in 2019/9/5 18:36
  */
 @Service
 @Slf4j
 public class BusinessServiceImpl implements BusinessService {
 
-    @DubboReference (version = "1.0.1", protocol = "dubbo",timeout = 3000)
+    @DubboReference(version = "1.0.1", protocol = "dubbo", timeout = 3000)
     private StorageDubboService storageDubboService;
 
     @DubboReference
@@ -34,6 +34,7 @@ public class BusinessServiceImpl implements BusinessService {
 
     /**
      * 处理业务逻辑 正常的业务逻辑
+     *
      * @Param:
      * @Return:
      */

@@ -17,7 +17,7 @@ public interface SecurityConstants {
      */
     String USER_ID_HEADER = "x-userid-header";
 
-
+    String TOKEN_PREFIX = "";
     /**
      * 当前登录用户nickName
      */

@@ -17,4 +17,18 @@ public class ObjectResponse<T> extends BaseResponse implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
+
+    public static ObjectResponse failed(Integer code, String msg) {
+        ObjectResponse objectResponse = new ObjectResponse();
+        objectResponse.setStatus(code);
+        objectResponse.setMessage(msg);
+        return objectResponse;
+    }
+
+    public static <T> ObjectResponse success(T data) {
+        ObjectResponse objectResponse = new ObjectResponse();
+        objectResponse.setStatus(200);
+        objectResponse.setData(data);
+        return objectResponse;
+    }
 }

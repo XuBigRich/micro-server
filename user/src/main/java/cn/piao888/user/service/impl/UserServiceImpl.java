@@ -1,4 +1,4 @@
-package cn.piao888.user.service;
+package cn.piao888.user.service.impl;
 
 import cn.piao888.common.dto.UserDTO;
 import cn.piao888.user.mapper.UserMapper;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class UserServiceImpl implements UserDubboService {
     @Autowired
     private UserMapper userMapper;
+
     @Override
     public UserDTO getUserByUsername(String username) {
         return userMapper.getUserByUsername(username);

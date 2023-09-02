@@ -1,5 +1,6 @@
 package cn.piao888.user.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * @Version 1.0
  */
 @Data
+@TableName("t_user")
 public class User {
     private Long id;
     private String nickname;

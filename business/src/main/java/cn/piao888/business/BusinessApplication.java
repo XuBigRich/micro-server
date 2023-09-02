@@ -12,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
 
 
-@SpringBootApplication(scanBasePackages = "cn.piao888")
+//@SpringBootApplication(scanBasePackages = "cn.piao888")
+@SpringBootApplication
 @Data
 public class BusinessApplication {
 

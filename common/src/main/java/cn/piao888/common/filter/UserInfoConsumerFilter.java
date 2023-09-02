@@ -12,6 +12,9 @@ import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.Result;
 import org.apache.dubbo.rpc.RpcException;
 
+/**
+ * dubbo间 调用 赋值用
+ */
 @Slf4j
 //在filter实现类添加@Activate(group = “provider"注解，并指定服务提供者还是消费者端生效
 @Activate(group = "consumer")

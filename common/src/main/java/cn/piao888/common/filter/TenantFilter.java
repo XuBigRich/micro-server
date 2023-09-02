@@ -18,6 +18,7 @@ import java.util.Enumeration;
 
 /**
  * 租户过滤器
+ * 网管调用第一个服务 使用的过滤器
  *
  * @author dmp
  * @date 2019/9/15

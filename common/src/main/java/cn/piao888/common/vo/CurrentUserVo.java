@@ -13,4 +13,7 @@ public class CurrentUserVo {
     private String nickName;
     private String userName;
     private String requestDate;
+    private String token;
+    private Long expireTime;
+    private Long loginTime;
 }
