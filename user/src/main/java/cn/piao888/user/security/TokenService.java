@@ -26,7 +26,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *
  * @author ruoyi
  */
-@Component
+//@Component
 public class TokenService {
     // 令牌自定义标识
     @Value("${token.header}")

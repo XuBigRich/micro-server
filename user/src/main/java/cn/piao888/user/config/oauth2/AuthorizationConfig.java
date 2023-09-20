@@ -3,6 +3,7 @@ package cn.piao888.user.config.oauth2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.token.TokenService;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
@@ -21,7 +23,9 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.sql.DataSource;
 import java.util.*;
@@ -36,13 +40,9 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private TokenStore tokenStore;
-    @Autowired
     private JwtAccessTokenConverter jwtAccessTokenConverter;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -55,7 +55,6 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore)
@@ -70,7 +69,15 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 //认证管理器
                 .authenticationManager(authenticationManager);
     }
+    @Autowired
+    public ClientDetailsService clientDetailsService;
 
+    @Bean
+    public ClientDetailsService clientDetailsService(DataSource dataSource) {
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
+        return jdbcClientDetailsService;
+    }
     /**
      * 客户端详情服务
      *
@@ -79,14 +86,15 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("client")
-                .secret(passwordEncoder.encode("123456"))
-                .resourceIds("account", "business", "storages", "order")
-                .scopes("all")
-                .redirectUris("http://localhost:9999/test")
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token ")
-                .scopes("read_profile", "read_contacts");
+//        clients.inMemory()
+//                .withClient("client")
+//                .secret(passwordEncoder.encode("123456"))
+//                .resourceIds("account", "business", "storages", "order")
+//                .scopes("all")
+//                .redirectUris("http://localhost:9999/test")
+//                .authorizedGrantTypes("authorization_code", "password", "refresh_token ")
+//                .scopes("read_profile", "read_contacts");
+        clients.withClientDetails(clientDetailsService);
     }
 
     /**
@@ -98,21 +106,19 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         //配置token获取合验证时的策略
-        security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("permitAll()")
+                .checkTokenAccess("isAuthenticated()")
+                .allowFormAuthenticationForClients();
     }
+
+
 
 
     @Autowired
-    public ClientDetailsService clientDetailsService;
+    private TokenStore tokenStore;
 
     @Bean
-    public ClientDetailsService clientDetailsService(DataSource dataSource) {
-        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
-        jdbcClientDetailsService.setPasswordEncoder(passwordEncoder);
-        return jdbcClientDetailsService;
-    }
-
-
+    @Primary
     public AuthorizationServerTokenServices tokenService() {
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setClientDetailsService(clientDetailsService);
@@ -123,17 +129,21 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
         return defaultTokenServices;
     }
 
-//    /**
-//     * 设置token存储在redis中
-//     *
-//     * @return
-//     */
-//    @Bean
-//    public TokenStore redisTokenStore() {
-//        //使用redis存储token
-//        RedisTokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
-//        //设置redis token存储中的前缀
-//        redisTokenStore.setPrefix("auth-token:");
-//        return redisTokenStore;
-//    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+
+    /**
+     * 签名密钥
+     */
+    private String SIGNING_KEY = "secret";
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(SIGNING_KEY);
+        return converter;
+    }
 }

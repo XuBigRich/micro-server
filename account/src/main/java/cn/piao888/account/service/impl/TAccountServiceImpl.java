@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * <p>
  * 服务实现类
@@ -30,7 +32,7 @@ public class TAccountServiceImpl implements ITAccountService {
     public ObjectResponse decreaseAccount(AccountDTO accountDTO) {
         log.info("开始全局事务，XID = " + RootContext.getXID());
 
-        int account = tAccountMapper.decreaseAccount(SessionUtil.get().getId(), accountDTO.getAmount());
+        int account = tAccountMapper.decreaseAccount(Optional.ofNullable(SessionUtil.get().getId()).orElse(1l), accountDTO.getAmount());
         ObjectResponse<Object> response = new ObjectResponse<>();
         if (account > 0) {
             response.setStatus(RspStatusEnum.SUCCESS.getCode());

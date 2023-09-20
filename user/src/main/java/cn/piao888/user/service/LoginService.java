@@ -10,4 +10,5 @@ import cn.piao888.user.vo.req.LoginBody;
  */
 public interface LoginService {
     CurrentUserVo login(LoginBody loginBody);
+    void getToken(String token);
 }

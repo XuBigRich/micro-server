@@ -23,6 +23,8 @@ public class LoginBody {
      */
     private String password;
 
+    private String clientId;
+
     /**
      * 验证码
      */

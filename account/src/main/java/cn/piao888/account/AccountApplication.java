@@ -8,11 +8,13 @@ import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @Data
+@EnableResourceServer
 @EnableDubbo(scanBasePackages = "cn.piao888.account")
 public class AccountApplication {
 
@@ -34,7 +36,7 @@ public class AccountApplication {
 
     @PostConstruct
     public void registerService() throws NacosException {
-        namingService.registerInstance(applicationName,address, serverPort);
+        namingService.registerInstance(applicationName, address, serverPort);
     }
 
 

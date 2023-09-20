@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import javax.annotation.PostConstruct;
 
@@ -15,6 +16,7 @@ import javax.annotation.PostConstruct;
 //@SpringBootApplication(scanBasePackages = "cn.piao888")
 @SpringBootApplication
 @Data
+@EnableResourceServer
 public class BusinessApplication {
 
     @Value("${spring.application.name}")

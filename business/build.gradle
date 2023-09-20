@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
+    implementation project(":common")
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.2'
     implementation "com.alibaba.nacos:nacos-client:${nacosClientVerison}"

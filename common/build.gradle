@@ -3,14 +3,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.5.0'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.5.5'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE' // Spring Cloud版本管理器插件
     }
 }
 plugins {
     id 'java'
+    id 'java-library'
     id 'maven-publish'
-    id 'org.springframework.boot' version '2.5.0'
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE' // Spring Cloud版本管理器插件
 }
 
@@ -29,14 +30,15 @@ repositories {
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
-    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    api "org.slf4j:slf4j-api:${slf4jVersion}"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     implementation "com.alibaba:fastjson:${fastjsonVersion}"
     implementation 'org.projectlombok:lombok:1.18.20'
     implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-//    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    api 'org.springframework.boot:spring-boot-starter-security'
+    api 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.5.5'
+    api 'org.springframework.security:spring-security-jwt:1.1.1.RELEASE'
+
 }
 publishing {
     /*

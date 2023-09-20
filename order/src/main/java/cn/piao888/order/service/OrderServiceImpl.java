@@ -16,6 +16,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -46,12 +47,13 @@ public class OrderServiceImpl implements OrderDubboService {
         //生成订单
         TOrder tOrder = new TOrder();
         BeanUtils.copyProperties(orderDTO, tOrder);
-        tOrder.setUserId(SessionUtil.get().getId());
+        tOrder.setUserId(Optional.ofNullable(SessionUtil.get().getId()).orElse(1l));
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
         try {
             orderDAO.createOrder(tOrder);
         } catch (Exception e) {
+            e.printStackTrace();
             response.setStatus(RspStatusEnum.FAIL.getCode());
             response.setMessage(RspStatusEnum.FAIL.getMessage());
             return response;

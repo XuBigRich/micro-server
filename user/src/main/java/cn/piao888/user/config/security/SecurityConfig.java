@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,9 +26,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationEntryPointImpl unauthorizedHandler;
     @Autowired
     private CorsFilter corsFilter;
-
-    @Autowired
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+//    @Autowired
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
+//
+//    @Autowired
+//    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -36,12 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/public/**").permitAll()
-                .antMatchers("/login").anonymous()
-                .anyRequest().authenticated().and()
-                .logout().logoutUrl("/logout").permitAll().and()
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+//                .antMatchers("/public/**").permitAll()
+//                .antMatchers("/login").anonymous()
+//                .antMatchers("/actuator/**").anonymous()
+                .antMatchers("/oauth/**").anonymous().and()
+//                .antMatchers("/getToken").anonymous()
+//                .anyRequest().authenticated()
+//                .and()
+//                .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).permitAll().and()
+//                .and().addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -52,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

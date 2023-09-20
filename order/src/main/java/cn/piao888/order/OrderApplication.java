@@ -7,11 +7,13 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @Data
+@EnableResourceServer
 public class OrderApplication {
 
     @Value("${spring.application.name}")
@@ -22,7 +24,7 @@ public class OrderApplication {
 
     @Value("${nacos.discovery.server-addr}")
     private String address;
-//    @Value("${nacos.discovery.group}")
+    //    @Value("${nacos.discovery.group}")
 //    private String group;
     @NacosInjected
     private NamingService namingService;
@@ -35,7 +37,7 @@ public class OrderApplication {
     @PostConstruct
     public void registerService() throws NacosException {
 //        namingService.registerInstance(applicationName, group,address, serverPort);
-        namingService.registerInstance(applicationName,address, serverPort);
+        namingService.registerInstance(applicationName, address, serverPort);
     }
 
 

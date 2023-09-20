@@ -16,4 +16,5 @@ public class CurrentUserVo {
     private String token;
     private Long expireTime;
     private Long loginTime;
+
 }

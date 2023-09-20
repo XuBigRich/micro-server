@@ -34,6 +34,8 @@ dubbo:
   registry:
     id: dubbo-business-example-registry
     address: nacos://127.0.0.1:8848
+  consumer:
+    check: false
 nacos:
   discovery:
     server-addr: localhost:8848

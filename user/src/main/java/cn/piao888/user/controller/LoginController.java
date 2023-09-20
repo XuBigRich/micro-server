@@ -8,6 +8,7 @@ import cn.piao888.user.vo.req.LoginBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,11 @@ public class LoginController {
     public ObjectResponse<CurrentUserVo> login(@RequestBody LoginBody loginBody) {
         final CurrentUserVo login = loginService.login(loginBody);
         return ObjectResponse.success(login);
+    }
+
+    @GetMapping("/getToken")
+    public void getToken(String token) {
+        loginService.getToken(token);
     }
 
     @PostMapping("/getSession")
