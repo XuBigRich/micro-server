@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author cmbchina
  */
-//@Configuration
+@Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Autowired
     private TokenStore tokenStore;
@@ -31,6 +31,8 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
+        final Object principal = authentication.getPrincipal();
+//        tokenStore.
 //        User loginUser = tokenStore.removeAccessToken(request.getHeader());
 //        if (null != loginUser) {
 //            String userName = loginUser.getUsername();

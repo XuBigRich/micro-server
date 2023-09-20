@@ -55,6 +55,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthorizationCodeServices authorizationCodeServices;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore)

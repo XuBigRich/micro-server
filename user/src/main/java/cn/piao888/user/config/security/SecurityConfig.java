@@ -26,29 +26,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationEntryPointImpl unauthorizedHandler;
     @Autowired
     private CorsFilter corsFilter;
-//    @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
-//
-//    @Autowired
+
+    //    @Autowired
 //    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    @Autowired
+    private LogoutSuccessHandlerImpl logoutSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests()
-//                .antMatchers("/public/**").permitAll()
-//                .antMatchers("/login").anonymous()
-//                .antMatchers("/actuator/**").anonymous()
-                .antMatchers("/oauth/**").anonymous().and()
-//                .antMatchers("/getToken").anonymous()
-//                .anyRequest().authenticated()
-//                .and()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().and()
+                .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).permitAll().and()
+                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic();
+        //注意 oauth2.0必须先进行登陆认证 才能获取到授权
+//        http
+//
+////                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .authorizeRequests()
+////                .antMatchers("/public/**").permitAll()
+////                .antMatchers("/login").anonymous()
+////                .antMatchers("/actuator/**").anonymous()
+////                .antMatchers("/oauth/**").anonymous()
+////                .antMatchers("/getToken").anonymous()
+////                .anyRequest().authenticated()
+////                .and()
 //                .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).permitAll().and()
-//                .and().addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
+////                .and().addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+//                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

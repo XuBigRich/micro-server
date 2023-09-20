@@ -19,6 +19,7 @@ import java.net.http.HttpRequest;
 import java.util.Enumeration;
 
 /**
+ * 这个类的目标是要代替  org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint
  * @Author： hongzhi.xu
  * @Date: 2023/5/26 7:52 下午
  * @Version 1.0
