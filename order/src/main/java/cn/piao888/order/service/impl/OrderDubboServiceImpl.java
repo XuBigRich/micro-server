@@ -1,4 +1,4 @@
-package cn.piao888.order.service;
+package cn.piao888.order.service.impl;
 
 import cn.piao888.common.dto.AccountDTO;
 import cn.piao888.common.dto.OrderDTO;
@@ -24,7 +24,7 @@ import java.util.UUID;
  * @since 2021/9/30
  */
 @Slf4j
-public class OrderServiceImpl implements OrderDubboService {
+public class OrderDubboServiceImpl implements OrderDubboService {
 
     @Autowired
     private OrderMapper orderDAO;

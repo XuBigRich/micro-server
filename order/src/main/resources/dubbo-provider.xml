@@ -6,6 +6,6 @@
 
     <dubbo:registry address="nacos://127.0.0.1:8848"/>
     <dubbo:protocol name="dubbo" port="20890"/>
-    <bean id="helloService" class="cn.piao888.order.service.OrderServiceImpl"/>
+    <bean id="helloService" class="cn.piao888.order.service.impl.OrderDubboServiceImpl"/>
     <dubbo:service interface="cn.piao888.common.dubbo.OrderDubboService" ref="helloService"/>
 </beans>
