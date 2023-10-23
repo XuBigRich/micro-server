@@ -11,11 +11,37 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 23/02/2023 10:42:32
+ Date: 23/10/2023 17:34:46
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for oauth_client_details
+-- ----------------------------
+DROP TABLE IF EXISTS `oauth_client_details`;
+CREATE TABLE `oauth_client_details` (
+  `client_id` varchar(256) NOT NULL,
+  `client_secret` varchar(256) DEFAULT NULL,
+  `resource_ids` varchar(256) DEFAULT NULL,
+  `scope` varchar(256) DEFAULT NULL,
+  `authorized_grant_types` varchar(256) DEFAULT NULL,
+  `web_server_redirect_uri` varchar(256) DEFAULT NULL,
+  `authorities` varchar(256) DEFAULT NULL,
+  `access_token_validity` int DEFAULT NULL,
+  `refresh_token_validity` int DEFAULT NULL,
+  `additional_information` varchar(4096) DEFAULT NULL,
+  `autoapprove` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of oauth_client_details
+-- ----------------------------
+BEGIN;
+INSERT INTO `oauth_client_details` (`client_id`, `client_secret`, `resource_ids`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('mall-id', 'mall-client-secret', 'account,business,storages,order', 'all', 'authorization_code,refresh_token', 'http://localhost:9999/test', 'ROLE_CLIENT', NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for t_account
@@ -24,17 +50,16 @@ DROP TABLE IF EXISTS `t_account`;
 CREATE TABLE `t_account` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
   `user_id` bigint DEFAULT NULL COMMENT '用户id',
-  `total` decimal(10,0) DEFAULT NULL COMMENT '总额度',
-  `used` decimal(10,0) DEFAULT NULL COMMENT '已用余额',
-  `residue` decimal(10,0) DEFAULT '0' COMMENT '剩余可用额度',
+  `amount` decimal(10,0) DEFAULT NULL COMMENT '总额度',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_account
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_account` (`id`, `user_id`, `total`, `used`, `residue`) VALUES (1, 1, 5000, NULL, NULL);
+INSERT INTO `t_account` (`id`, `user_id`, `amount`) VALUES (1, 1, 45800);
+INSERT INTO `t_account` (`id`, `user_id`, `amount`) VALUES (2, NULL, 46800);
 COMMIT;
 
 -- ----------------------------
@@ -49,7 +74,7 @@ CREATE TABLE `t_order` (
   `count` int DEFAULT NULL COMMENT '数量',
   `amount` decimal(11,0) DEFAULT NULL COMMENT '金额',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_order
@@ -61,6 +86,52 @@ INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `
 INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (10, '4442a9eb7dc54ca68667e4634f0331d8', 1, 'T00001', 2, 200);
 INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (11, '7f21db67d7ac4522a9db750b1549aba5', 1, 'T00001', 2, 200);
 INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (12, '04e9d72347604ce08c8283067ac84f9e', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (13, 'da40842dd38c4e9b94c795f1533748f0', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (14, '19216225fe314ff5a9339abac9a0c4c9', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (15, '069a8929bad648419456229d9ffd82ea', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (16, 'cac4784864c34d4cb8a4ab057109614f', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (17, 'b2c6be72be4b496285e9754ae88f928e', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (18, 'ad1fdaf4b2dd491a94455e1794703a91', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (19, '6ef1a0ca23494a3088608b1154b0adbd', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (20, 'c56939e5a9454b7a98ce41a4795400f8', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (21, 'a0fa1ece25bc4a49bafc614ff3bb9de3', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (22, '08e354d5b4d0499b8825aa1e895f68e1', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (23, '69ac887a2e5245aa96bb64dee3748253', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (24, '5accf3b57f4849e9a85d55c0fa3033f0', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (26, 'd2d153cca6ba49f8bbc99b9ff361da0d', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (29, 'edc85453ef074b8a9a8765f5948f0562', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (30, '9546a5843bdd418280dc8b9d56c36a9a', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (31, '0ad9eab190ab4fc5aef606e9a6573cf4', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (32, 'badca5fdae144237a628ff49420578cc', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (36, '96fb966df5ce4de2bc39cd2fbc79a6d1', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (37, 'd7429beff0d84bd3bf7207eaf46d044f', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (38, '2330bfb2eb4346838c08aa47c08ed0d0', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (39, '00ef5298ed124dbaa87003ef586c2e09', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (40, 'd341246db445410381237a4bfaea59d5', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (41, 'ceedae1f982948ff82708732b9cb857c', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (42, 'd2f05d700e4b49a58f955d0bc5719eb2', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (43, 'a82226468dfc48c69cd8ab24af283e91', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (44, '4103db1c19e24d66869029daa1081204', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (45, 'b487ad08d41e42d0a3fc1f1786368074', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (46, '97183d8155054ee3b1596e01cd95fba5', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (47, 'f5c7058ffa8c46bda0b472951cdbf227', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (48, 'c43826fe1e254ff091021112e046ed33', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (49, '741a797e977d4ecd8d9fd3960b7538d1', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (50, '513e36fcac3b482bb7bab405f9f64237', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (51, '6f84af0481d54ce7a927b4060ee29386', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (52, 'f7c45d860b0944fabbf78f8747acc55d', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (53, '9b979fa8bbe34bada28e151d51044000', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (54, 'a0239d2cc5854dacaa29428f8ad09daf', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (55, 'e16e930575d841ecb272e68b302cf0b5', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (56, 'df82a9b7153a4be09fe9d34e365f0f5f', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (58, '1b89bc9633584f0f90b7cc5de8027766', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (59, '79fe930a24054d419165d5d02de3256c', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (60, 'faba1c469c4743bbbed7295d2b3af3be', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (117, 'a8bef0477d7c423ea40a0c5a412af0cd', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (118, 'd4288d2ae54f4e54b2474941c5f69a9b', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (119, '3f132c49dc1f4aa8ad3b870bd8638072', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (120, '49f66ca8d9cc4e79802c1457b912950d', 1, 'T00001', 2, 200);
+INSERT INTO `t_order` (`id`, `order_no`, `user_id`, `commodity_code`, `count`, `amount`) VALUES (126, '217b6927a984456284695b226a321afa', 1, 'T00001', 2, 200);
 COMMIT;
 
 -- ----------------------------
@@ -68,17 +139,62 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_storage`;
 CREATE TABLE `t_storage` (
-  `id` int DEFAULT NULL,
+  `id` int NOT NULL,
   `commodity_code` varchar(255) DEFAULT NULL COMMENT '商品编号',
   `name` varchar(255) DEFAULT NULL COMMENT '商品名称',
-  `count` int DEFAULT NULL COMMENT '商品库存'
+  `count` int DEFAULT NULL COMMENT '商品库存',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of t_storage
 -- ----------------------------
 BEGIN;
-INSERT INTO `t_storage` (`id`, `commodity_code`, `name`, `count`) VALUES (1, 'T00001', '测试商品', 18);
+INSERT INTO `t_storage` (`id`, `commodity_code`, `name`, `count`) VALUES (1, 'T00001', '测试商品', 57);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user` (
+  `id` int NOT NULL,
+  `nickname` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_user` (`id`, `nickname`, `username`, `password`) VALUES (1, 'hongzhi.xu', 'hongzhi.xu', '$2a$10$x.EMhX78IrunRZXTF0rnH.N65W0okfOiDKMCQEnW5ya4e.nOyNoXa');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for undo_log
+-- ----------------------------
+DROP TABLE IF EXISTS `undo_log`;
+CREATE TABLE `undo_log` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint NOT NULL,
+  `xid` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `context` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  `ext` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of undo_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `undo_log` (`id`, `branch_id`, `xid`, `context`, `rollback_info`, `log_status`, `log_created`, `log_modified`, `ext`) VALUES (157, 2612522665512858218, '192.168.2.194:8091:2612522665512858212', 'serializer=jackson&compressorType=NONE', 0x7B7D, 1, '2023-09-13 21:48:38', '2023-09-13 21:48:38', NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
