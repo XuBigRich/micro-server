@@ -5,6 +5,7 @@ import cn.piao888.common.utils.SessionUtil;
 import cn.piao888.common.vo.CurrentUserVo;
 import cn.piao888.user.service.LoginService;
 import cn.piao888.user.vo.req.LoginBody;
+import cn.piao888.user.vo.resq.LoginResp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -77,50 +78,58 @@ public class LoginController {
     private OAuth2RequestValidator oauth2RequestValidator = new DefaultOAuth2RequestValidator();
     private UserApprovalHandler userApprovalHandler = new DefaultUserApprovalHandler();
 
-//    @RequestMapping({"/oauth/authorize"})
-//    public ModelAndView authorize(@RequestParam AuthorizationRequest authorizationRequest, SessionStatus sessionStatus, Principal principal) {
-//        Set<String> responseTypes = authorizationRequest.getResponseTypes();
-//        if (!responseTypes.contains("token") && !responseTypes.contains("code")) {
-//            throw new UnsupportedResponseTypeException("Unsupported response types: " + responseTypes);
-//        } else if (authorizationRequest.getClientId() == null) {
-//            throw new InvalidClientException("A client id must be provided");
-//        } else {
-//            try {
-//                if (principal instanceof Authentication && ((Authentication) principal).isAuthenticated()) {
-//                    ClientDetails client = clientDetailsService.loadClientByClientId(authorizationRequest.getClientId());
-//                    String redirectUriParameter = (String) authorizationRequest.getRequestParameters().get("redirect_uri");
-//                    String resolvedRedirect = this.redirectResolver.resolveRedirect(redirectUriParameter, client);
-//                    if (!StringUtils.hasText(resolvedRedirect)) {
-//                        throw new RedirectMismatchException("A redirectUri must be either supplied or preconfigured in the ClientDetails");
-//                    } else {
-//                        authorizationRequest.setRedirectUri(resolvedRedirect);
-//                        this.oauth2RequestValidator.validateScope(authorizationRequest, client);
-//                        authorizationRequest = this.userApprovalHandler.checkForPreApproval(authorizationRequest, (Authentication) principal);
-//                        boolean approved = this.userApprovalHandler.isApproved(authorizationRequest, (Authentication) principal);
-//                        authorizationRequest.setApproved(approved);
-//                        if (authorizationRequest.isApproved()) {
-//                            if (responseTypes.contains("token")) {
-//                                return this.getImplicitGrantResponse(authorizationRequest);
-//                            }
-//
-//                            if (responseTypes.contains("code")) {
-//                                return new ModelAndView(this.getAuthorizationCodeResponse(authorizationRequest, (Authentication) principal));
-//                            }
-//                        }
-//
-//                        model.put("authorizationRequest", authorizationRequest);
-//                        model.put("org.springframework.security.oauth2.provider.endpoint.AuthorizationEndpoint.ORIGINAL_AUTHORIZATION_REQUEST", this.unmodifiableMap(authorizationRequest));
-//                        return this.getUserApprovalPageResponse(model, authorizationRequest, (Authentication) principal);
-//                    }
-//                } else {
-//                    throw new InsufficientAuthenticationException("User must be authenticated with Spring Security before authorization can be completed.");
-//                }
-//            } catch (RuntimeException var11) {
-//                sessionStatus.setComplete();
-//                throw var11;
-//            }
-//        }
-//    }
+    @RequestMapping({"/oauth/authorize"})
+    public ObjectResponse authorize(@RequestParam AuthorizationRequest authorizationRequest, SessionStatus sessionStatus, Principal principal) {
+        //获取相应类型(请求过来)
+        Set<String> responseTypes = authorizationRequest.getResponseTypes();
+        //查看相应类型是否包含token或code
+        if (!responseTypes.contains("token") && !responseTypes.contains("code")) {
+            throw new UnsupportedResponseTypeException("Unsupported response types: " + responseTypes);
+        } else if (authorizationRequest.getClientId() == null) {
+            throw new InvalidClientException("A client id must be provided");
+        } else {
+            try {
+                //获取登陆信息
+                if (principal instanceof Authentication && ((Authentication) principal).isAuthenticated()) {
+                    //从登陆信息中获取客户端信息
+                    ClientDetails client = clientDetailsService.loadClientByClientId(authorizationRequest.getClientId());
+                    //从登陆信息中获取重定向信息
+                    String redirectUriParameter = (String) authorizationRequest.getRequestParameters().get("redirect_uri");
+                    //从登陆信息中获取 获取跳转url ，然后和目标url进行比对，如果成功 就返回 ，不成功则 抛出异常
+                    String resolvedRedirect = this.redirectResolver.resolveRedirect(redirectUriParameter, client);
+                    //判断重定向url是否存在
+                    if (!StringUtils.hasText(resolvedRedirect)) {
+                        throw new RedirectMismatchException("A redirectUri must be either supplied or preconfigured in the ClientDetails");
+                    } else {
+                        //构造请求 设置重定向地址
+                        authorizationRequest.setRedirectUri(resolvedRedirect);
+                        //验证这个clientid是否有这个权限
+                        this.oauth2RequestValidator.validateScope(authorizationRequest, client);
+                        authorizationRequest = this.userApprovalHandler.checkForPreApproval(authorizationRequest, (Authentication) principal);
+                        //获取请求参数  检查参数是否同意授权
+                        boolean approved = this.userApprovalHandler.isApproved(authorizationRequest, (Authentication) principal);
+                        authorizationRequest.setApproved(approved);
+                        //如果同意授权
+                        if (authorizationRequest.isApproved()) {
+                            if (responseTypes.contains("token")) {
+                                return ObjectResponse.success(new LoginResp("错"));
+                            }
+
+                            if (responseTypes.contains("code")) {
+                                return ObjectResponse.success(new LoginResp(resolvedRedirect));
+                            }
+                        }
+                        return ObjectResponse.success("127.0.0.1:9999/login");
+                    }
+                } else {
+                    throw new InsufficientAuthenticationException("User must be authenticated with Spring Security before authorization can be completed.");
+                }
+            } catch (RuntimeException var11) {
+                sessionStatus.setComplete();
+                throw var11;
+            }
+        }
+    }
 
 
 }
