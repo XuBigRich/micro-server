@@ -78,7 +78,7 @@ public class LoginController {
     private OAuth2RequestValidator oauth2RequestValidator = new DefaultOAuth2RequestValidator();
     private UserApprovalHandler userApprovalHandler = new DefaultUserApprovalHandler();
 
-    @RequestMapping({"/oauth/authorize"})
+    @RequestMapping({"/authorize"})
     public ObjectResponse authorize(@RequestParam AuthorizationRequest authorizationRequest, SessionStatus sessionStatus, Principal principal) {
         //获取相应类型(请求过来)
         Set<String> responseTypes = authorizationRequest.getResponseTypes();
@@ -119,7 +119,7 @@ public class LoginController {
                                 return ObjectResponse.success(new LoginResp(resolvedRedirect));
                             }
                         }
-                        return ObjectResponse.success("127.0.0.1:9999/login");
+                        return ObjectResponse.success("127.0.0.1:9999/home");
                     }
                 } else {
                     throw new InsufficientAuthenticationException("User must be authenticated with Spring Security before authorization can be completed.");

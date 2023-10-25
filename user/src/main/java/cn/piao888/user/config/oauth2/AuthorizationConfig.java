@@ -68,7 +68,10 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 //授权码模式
                 .authorizationCodeServices(authorizationCodeServices)
                 //认证管理器
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager)
+                .pathMapping("/oauth/authorize", "/authorize") // 自定义授权端点
+//                .pathMapping("/oauth/token", "/custom/token"); // 自定义令牌端点
+        ;
     }
     @Autowired
     public ClientDetailsService clientDetailsService;
