@@ -5,7 +5,8 @@ plugins {
 
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenLocal()
@@ -13,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(":resources")
     implementation project(":common")
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.2'

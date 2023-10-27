@@ -9,11 +9,9 @@ ext {
     logbackVersion = '1.1.10'
 }
 subprojects {
-    if (project.name != "common" && project.name != "gatway") {
+    if (project.name != "common" && project.name != "gatway"&& project.name != "user") {
         apply plugin: 'java'
         apply plugin: 'maven-publish'
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
 
         configurations.all {
             exclude group: "commons-logging", module: "commons-logging"
@@ -32,7 +30,6 @@ subprojects {
             implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
 
             implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
-            implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
             implementation "com.alibaba:druid:${druidVersion}"
             implementation "io.seata:seata-spring-boot-starter:${seataVersion}"
             implementation("org.apache.dubbo:dubbo:${dubboVersion}") {

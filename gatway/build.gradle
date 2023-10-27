@@ -27,7 +27,8 @@ dependencyManagement {
 apply plugin: 'java'
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 ext {
     springbootVerison = '2.3.12.RELEASE'
     slf4jVersion = '1.7.22'

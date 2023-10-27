@@ -22,7 +22,8 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
+    implementation project(":resources")
+    implementation project(":common")
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.7.RELEASE"

@@ -49,7 +49,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
     //授权码模式 需要配置
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
-        //设置授权码模式的授权码如何存取
+        //设置授权码模式的授权码如何存取，暂时用内存方式。
         return new InMemoryAuthorizationCodeServices();
     }
 
@@ -69,7 +69,7 @@ public class AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
                 .authorizationCodeServices(authorizationCodeServices)
                 //认证管理器
                 .authenticationManager(authenticationManager)
-                .pathMapping("/oauth/authorize", "/authorize") // 自定义授权端点
+//                .pathMapping("/oauth/authorize", "/authorize") // 自定义授权端点
 //                .pathMapping("/oauth/token", "/custom/token"); // 自定义令牌端点
         ;
     }

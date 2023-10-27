@@ -4,14 +4,15 @@ plugins {
 }
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenLocal()
     mavenCentral()
 }
 
 dependencies {
+    implementation project(":resources")
     implementation 'cn.piao888:common:0.0.1-SNAPSHOT'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.projectlombok:lombok:1.18.20'
