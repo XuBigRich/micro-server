@@ -2,7 +2,6 @@ package cn.piao888.user.vo.req;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -15,7 +14,6 @@ public class LoginBody {
     /**
      * 用户名
      */
-    @NotBlank(message = "登陆账号不能为空!")
     private String username;
 
     /**

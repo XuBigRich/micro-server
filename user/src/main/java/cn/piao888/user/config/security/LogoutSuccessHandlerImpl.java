@@ -2,15 +2,13 @@ package cn.piao888.user.config.security;
 
 import cn.piao888.user.utils.ServletUtils;
 import com.alibaba.fastjson.JSON;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -20,8 +18,6 @@ import java.io.IOException;
  */
 @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
-    @Autowired
-    private TokenStore tokenStore;
 
     /**
      * 退出处理
@@ -30,7 +26,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
      */
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+            throws IOException {
         final Object principal = authentication.getPrincipal();
 //        tokenStore.
 //        User loginUser = tokenStore.removeAccessToken(request.getHeader());

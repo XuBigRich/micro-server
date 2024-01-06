@@ -28,12 +28,17 @@ repositories {
 }
 
 dependencies {
-    implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+    api "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+    api "org.springframework.boot:spring-boot-starter:${springbootVerison}"
+    api 'mysql:mysql-connector-java:8.0.26'
+    api "com.alibaba:druid:${druidVersion}"
+    api 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
     api "org.slf4j:slf4j-api:${slf4jVersion}"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "com.alibaba:fastjson:${fastjsonVersion}"
-    implementation 'org.projectlombok:lombok:1.18.20'
-    implementation 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
+    api "com.alibaba:fastjson:${fastjsonVersion}"
+    api 'org.projectlombok:lombok:1.18.20'
+    api 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
+    api 'com.alibaba.spring:spring-context-support:1.0.10'
 }
 publishing {
     /*

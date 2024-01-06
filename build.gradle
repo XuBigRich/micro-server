@@ -4,12 +4,12 @@ ext {
     nacosClientVerison = '2.0.3'
     druidVersion = '1.2.6'
     springbootVerison = '2.3.12.RELEASE'
-    lombokVersion = '1.18.2'
+    lombokVersion = '1.18.22'
     slf4jVersion = '1.7.22'
     logbackVersion = '1.1.10'
 }
 subprojects {
-    if (project.name != "common" && project.name != "gatway"&& project.name != "user") {
+    if (project.name != "common" && project.name != "gatway") {
         apply plugin: 'java'
         apply plugin: 'maven-publish'
 
@@ -23,14 +23,6 @@ subprojects {
             uri 'https://maven.aliyun.com/repository/public/'
         }
         dependencies {
-            implementation "org.springframework.boot:spring-boot-starter:${springbootVerison}"
-            implementation 'com.alibaba.spring:spring-context-support:1.0.10'
-
-            implementation 'mysql:mysql-connector-java:8.0.26'
-            implementation 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
-
-            implementation "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
-            implementation "com.alibaba:druid:${druidVersion}"
             implementation "io.seata:seata-spring-boot-starter:${seataVersion}"
             implementation("org.apache.dubbo:dubbo:${dubboVersion}") {
                 exclude group: 'org.springframework', module: 'spring'
