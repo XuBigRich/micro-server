@@ -11,7 +11,6 @@ import cn.piao888.order.domain.TOrder;
 import cn.piao888.order.mapper.OrderMapper;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.manager.util.SessionUtils;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

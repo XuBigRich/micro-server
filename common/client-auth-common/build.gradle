@@ -1,0 +1,82 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.5.5'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE' // Spring Cloud版本管理器插件
+    }
+}
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '2.3.12.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE' // Spring Cloud版本管理器插件
+}
+
+group = 'cn.piao888'
+version = '0.0.1-SNAPSHOT'
+ext {
+    springbootVerison = '2.3.12.RELEASE'
+    slf4jVersion = '1.7.22'
+    fastjsonVersion = "1.2.75"
+}
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    api "org.springframework.boot:spring-boot-starter-security"
+    api 'cn.piao888:common-core:0.0.1-SNAPSHOT'
+    api "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+    api "org.springframework.boot:spring-boot-starter:${springbootVerison}"
+    api "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+    api 'mysql:mysql-connector-java:8.0.26'
+    api "com.alibaba:druid:${druidVersion}"
+    api 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
+    api "org.slf4j:slf4j-api:${slf4jVersion}"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    api "com.alibaba:fastjson:${fastjsonVersion}"
+    api 'org.projectlombok:lombok:1.18.20'
+    api 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
+    api 'com.alibaba.spring:spring-context-support:1.0.10'
+}
+publishing {
+    /*
+
+    下面我们定义了一个名为myLibrary的publication
+        from components.java这句表明是一个java库，也就是最终会以jar包的形式发布。
+        还定义了一个本地maven仓库，表明myLibrary的jar包最终会被发布到本地maven仓库。
+        components定义了发布的组件，
+            支持三个值：components.java(由JavaPlugin添加)、components.web(由WarPlugin添加)、components.javaPlatform(由JavaPlatformPlugin添加)。
+        如果我们需要将一个web项目打包成war包发布，则使用components.web。
+        我们当前的例子为jar，则使用components.java。
+
+　       　Gradle使用与Maven相同的逻辑来标识本地Maven缓存的位置。
+            如果在settings.xml中定义了本地Maven仓库位置，那么Gradle将使用这个位置。
+            USER_HOME/.m2下的settings.xml将会覆盖M2_HOME/conf中的settings.xml。
+            如果没有可获取的settings.xml，Gradle将默认使用USER_HOME/.m2/repository作为本地Maven仓库位置。
+
+            如果要发布到  本地仓库/远程仓库  只需执行publishing -> publishMyLibraryPublicationToMavenLocal
+    * */
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
+    // 配置发布的地址
+    repositories {
+        // 一. 这种方式是最简便的方式
+        mavenLocal()
+        // 二. 或者使用自己配置本地路径，第一与第二使用一种就可以了
+//        maven{
+//            def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
+//            url localMavenRepo
+//        }
+    }
+}
+test {
+    useJUnitPlatform()
+}

@@ -1,4 +1,4 @@
-package cn.piao888.resources.oauth;
+package cn.piao888.oauth2.oauth;
 
 import cn.piao888.common.utils.ServletUtils;
 import com.alibaba.fastjson.JSON;

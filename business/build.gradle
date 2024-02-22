@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(":resources")
-    implementation project(":common")
+    implementation project(":common:client-auth-common")
+    implementation project(":common:common-core")
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'com.alibaba.boot:nacos-discovery-spring-boot-starter:0.2.2'
     implementation "com.alibaba.nacos:nacos-client:${nacosClientVerison}"

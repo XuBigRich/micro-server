@@ -22,8 +22,8 @@ dependencyManagement {
 }
 
 dependencies {
-    implementation project(":resources")
-    implementation project(":common")
+    implementation project(":common:client-auth-common")
+    implementation project(":common:common-core")
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.7.RELEASE"

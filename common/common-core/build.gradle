@@ -17,8 +17,6 @@ plugins {
 
 group = 'cn.piao888'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 ext {
     springbootVerison = '2.3.12.RELEASE'
     slf4jVersion = '1.7.22'
@@ -30,13 +28,17 @@ repositories {
 }
 
 dependencies {
-    api project(":common")
-    api 'org.springframework.boot:spring-boot-starter-security'
-    api 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-    api 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    api 'org.springframework.security:spring-security-jwt:1.1.1.RELEASE'
-    api 'com.auth0:java-jwt:3.10.3'
-
+    api "org.springframework.boot:spring-boot-starter-web:${springbootVerison}"
+    api "org.springframework.boot:spring-boot-starter:${springbootVerison}"
+    api 'mysql:mysql-connector-java:8.0.26'
+    api "com.alibaba:druid:${druidVersion}"
+    api 'com.baomidou:mybatis-plus-boot-starter:3.4.0'
+    api "org.slf4j:slf4j-api:${slf4jVersion}"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    api "com.alibaba:fastjson:${fastjsonVersion}"
+    api 'org.projectlombok:lombok:1.18.20'
+    api 'org.apache.dubbo:dubbo-spring-boot-starter:2.7.12'
+    api 'com.alibaba.spring:spring-context-support:1.0.10'
 }
 publishing {
     /*

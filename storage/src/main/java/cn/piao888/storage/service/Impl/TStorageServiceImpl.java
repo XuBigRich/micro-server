@@ -5,13 +5,10 @@ import cn.piao888.common.dubbo.StorageDubboService;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
 import cn.piao888.storage.mapper.TStorageMapper;
-import cn.piao888.storage.service.ITStorageService;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  * @author 许鸿志

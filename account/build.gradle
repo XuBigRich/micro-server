@@ -72,8 +72,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(":resources")
-    implementation project(":common")
+    implementation project(":common:client-auth-common")
+    implementation project(":common:common-core")
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 /*    implementation 'com.google.protobuf:protobuf-java:3.19.4'

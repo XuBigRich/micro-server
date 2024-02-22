@@ -1,4 +1,4 @@
-package cn.piao888.resources.oauth;
+package cn.piao888.oauth2.oauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
