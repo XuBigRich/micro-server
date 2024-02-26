@@ -1,4 +1,4 @@
-package cn.piao888.account;
+package cn.piao888;
 
 import com.alibaba.nacos.api.annotation.NacosInjected;
 import com.alibaba.nacos.api.exception.NacosException;
