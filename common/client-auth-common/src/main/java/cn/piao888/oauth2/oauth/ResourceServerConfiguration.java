@@ -21,7 +21,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 /**
  * 资源服务器配置
@@ -57,6 +60,10 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 //                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests()
+                .antMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/assets/**")
+                        , new RegexRequestMatcher("/webjars/**", HttpMethod.GET.name())
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().and()
@@ -64,7 +71,6 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new LogoutSuccessHandlerImpl()).permitAll().and()
 //                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic();
-
     }
 
     /**
