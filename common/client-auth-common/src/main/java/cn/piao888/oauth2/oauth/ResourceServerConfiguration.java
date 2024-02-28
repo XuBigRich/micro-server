@@ -62,7 +62,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/assets/**", "/webjars/**", "/login").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/assets/**")
-                        , new RegexRequestMatcher("/webjars/**", HttpMethod.GET.name())
+                        , new RegexRequestMatcher("/webjars/.*", HttpMethod.GET.name())
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and()
