@@ -16,7 +16,6 @@ import java.io.IOException;
  *
  * @author cmbchina
  */
-@Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
 //    @Autowired
 //    private TokenStore tokenStore;

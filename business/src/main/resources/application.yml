@@ -8,7 +8,11 @@ spring:
     password: rr998xhz1997
   application:
     name: business
-
+logging:
+  level:
+    org:
+      springframework:
+        DEBUG
 seata:
   #enabled: true
   application-id: ${spring.application.name}

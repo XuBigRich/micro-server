@@ -47,7 +47,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 // 当未登录时访问认证端点时重定向至login页面
                 .exceptionHandling((exceptions) -> exceptions.defaultAuthenticationEntryPointFor(new LoginUrlAuthenticationEntryPoint("/login"), new MediaTypeRequestMatcher(MediaType.TEXT_HTML)))
                 // 处理使用access token访问用户信息端点和客户端注册端点
-                .oauth2ResourceServer((resourceServer) -> resourceServer
+                 .oauth2ResourceServer((resourceServer) -> resourceServer
                         .jwt(Customizer.withDefaults())
                         .accessDeniedHandler(SecurityUtils::exceptionHandler)
                         .authenticationEntryPoint(SecurityUtils::exceptionHandler)
@@ -60,7 +60,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 //                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests()
-                .antMatchers("/assets/**", "/webjars/**", "/login").permitAll()
+                .antMatchers("/assets/**", "/webjars/**", "/login","/business/dubbo/loginSuccessful").permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/assets/**")
                         , new RegexRequestMatcher("/webjars/.*", HttpMethod.GET.name())
                 ).permitAll()

@@ -5,6 +5,7 @@ import cn.piao888.common.dto.BusinessDTO;
 import cn.piao888.common.response.ObjectResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Iterator;
@@ -26,13 +27,8 @@ public class BusinessController {
     private BusinessService businessService;
 
     @GetMapping("/loginSuccessful")
-    public void loginSuccessful(Map para) {
-        final Set set = para.entrySet();
-        final Iterator iterator = set.iterator();
-        while (iterator.hasNext()) {
-            final Object next = iterator.next();
-            System.out.println(next);
-        }
+    public void loginSuccessful() {
+        System.out.printf("请求成功");
     }
 
     /**
@@ -42,6 +38,7 @@ public class BusinessController {
      * @Return:
      */
     @PostMapping("/buy")
+    @PreAuthorize("hasAuthority('app')")
     ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO) {
         log.info("请求参数：{}", businessDTO.toString());
         return businessService.handleBusiness(businessDTO);
@@ -54,6 +51,7 @@ public class BusinessController {
      * @Return:
      */
     @PostMapping("/buy2")
+    @PreAuthorize("hasAuthority('web')")
     ObjectResponse handleBusiness2(@RequestBody BusinessDTO businessDTO) {
         log.info("请求参数：{}", businessDTO.toString());
         return businessService.handleBusiness2(businessDTO);

@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    cn.piao888.oauth2.oauth.ResourceServerConfiguration,\
+  cn.piao888.oauth2.oauth.LogoutSuccessHandlerImpl
