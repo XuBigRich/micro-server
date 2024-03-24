@@ -56,7 +56,7 @@ seata:
       server-addr: localhost:8848
       group: SEATA_GROUP
       application: seata-server
-  #      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
+      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
       cluster: default
   config:
     type: nacos

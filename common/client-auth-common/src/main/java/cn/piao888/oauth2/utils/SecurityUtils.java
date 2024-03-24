@@ -5,6 +5,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.server.resource.BearerTokenError;
@@ -17,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static com.alibaba.com.caucho.hessian.io.HessianInputFactory.log;
 
 @Slf4j
 public class SecurityUtils {
@@ -108,5 +108,7 @@ public class SecurityUtils {
         return wwwAuthenticate.toString();
     }
 
-
+    public static Object getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }

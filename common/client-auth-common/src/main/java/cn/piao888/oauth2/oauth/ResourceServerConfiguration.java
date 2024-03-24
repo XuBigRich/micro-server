@@ -1,9 +1,6 @@
 package cn.piao888.oauth2.oauth;//package cn.piao888.common.oauth;
 
 import cn.piao888.oauth2.utils.SecurityUtils;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +28,10 @@ import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-import java.util.UUID;
 
 /**
  * 资源服务器配置
@@ -60,28 +54,35 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                 // 当未登录时访问认证端点时重定向至login页面
                 .exceptionHandling((exceptions) -> exceptions.defaultAuthenticationEntryPointFor(new LoginUrlAuthenticationEntryPoint("/login"), new MediaTypeRequestMatcher(MediaType.TEXT_HTML)))
                 // 处理使用access token访问用户信息端点和客户端注册端点
-                .oauth2ResourceServer((resourceServer) -> resourceServer
-                        .jwt(Customizer.withDefaults())
-                        .accessDeniedHandler(SecurityUtils::exceptionHandler)
-                        .authenticationEntryPoint(SecurityUtils::exceptionHandler)
-                );
+                .oauth2ResourceServer((resourceServer) ->
+                        resourceServer.jwt(jet -> {
+                                    try {
+                                        jet
+                                                .decoder(jwtDecoder())
+                                                .jwtAuthenticationConverter(jwtAuthenticationConverter());
+                                    } catch (NoSuchAlgorithmException e) {
+                                        throw new RuntimeException(e);
+                                    } catch (InvalidKeySpecException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                })
+                                .accessDeniedHandler(SecurityUtils::exceptionHandler)
+                                .authenticationEntryPoint(SecurityUtils::exceptionHandler));
 
     }
 
     public void authorityConfigure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
+        httpSecurity.csrf().disable()
 //                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .authorizeRequests()
-                .antMatchers("/assets/**", "/webjars/**", "/login", "/business/dubbo/loginSuccessful").permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/assets/**")
-                        , new RegexRequestMatcher("/webjars/.*", HttpMethod.GET.name())
-                ).permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests().antMatchers("/assets/**", "/webjars/**", "/login", "/business/dubbo/loginSuccessful")
+                    .permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/assets/**"), new RegexRequestMatcher("/webjars/.*", HttpMethod.GET.name()))
+                    .permitAll()
+                .anyRequest()
+                    .authenticated()
+                .and().formLogin()
+                .and().logout().logoutUrl("/logout").logoutSuccessHandler(new LogoutSuccessHandlerImpl()).permitAll()
                 .and()
-                .formLogin().and()
-                .logout().logoutUrl("/logout")
-                .logoutSuccessHandler(new LogoutSuccessHandlerImpl()).permitAll().and()
 //                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic();
     }
@@ -91,37 +92,23 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
      *
      * @return jwt解析器 JwtAuthenticationConverter
      */
-    @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         // 设置解析权限信息的前缀，设置为空是去掉前缀
         grantedAuthoritiesConverter.setAuthorityPrefix("");
         // 设置权限信息在jwt claims中的key
         grantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
-
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
 
-//    @Bean
-//    public JwtDecoder jwtDecoder() {
+
+    public JwtDecoder jwtDecoder() throws NoSuchAlgorithmException, InvalidKeySpecException {
 //        return NimbusJwtDecoder.withJwkSetUri("https://example.com/.well-known/jwks.json").build();
-//    }
-
-    /**
-     * 配置jwk源，使用非对称加密，公开用于检索匹配指定选择器的JWK的方法
-     *
-     * @return JWKSource
-     */
-    @Bean
-    public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        String publicKeyString = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzT+lMxzjhPcIzn+mz/kJ1wq9GPyF6WADU4prUKPj1HrqDOgYWAllkG1EKS14dpy8obRxA1k2Kv/mnefCGaLvSsqZAh/Mgv5AxC9CdUnblfifaWdiRSuOjfWuDPA17d21L3qwdk3Q1tErgsBkFiTeryUzN2e+AmrqOoJTLKQrQutWsDwTzD5NAz9wCP06NyKZ4xFGgyJwqXEJY3kNuC+3+aDjhqB2tN+QzBCi3ItZDjNS0mPAFjI9VqSjyJj4wAjEpculYx/voB06FQ0TQHWQdOMedoPl6J9FPQcHEMQtletYfGjmIbK5B9lricTeQAFerODev3Sz65E2a5ayF4BgWQIDAQAB";
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        X509EncodedKeySpec publicKey = new X509EncodedKeySpec(Base64.getDecoder().decode("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzT+lMxzjhPcIzn+mz/kJ1wq9GPyF6WADU4prUKPj1HrqDOgYWAllkG1EKS14dpy8obRxA1k2Kv/mnefCGaLvSsqZAh/Mgv5AxC9CdUnblfifaWdiRSuOjfWuDPA17d21L3qwdk3Q1tErgsBkFiTeryUzN2e+AmrqOoJTLKQrQutWsDwTzD5NAz9wCP06NyKZ4xFGgyJwqXEJY3kNuC+3+aDjhqB2tN+QzBCi3ItZDjNS0mPAFjI9VqSjyJj4wAjEpculYx/voB06FQ0TQHWQdOMedoPl6J9FPQcHEMQtletYfGjmIbK5B9lricTeQAFerODev3Sz65E2a5ayF4BgWQIDAQAB"));
-        RSAKey rsaKey = new RSAKey.Builder((RSAPublicKey) keyFactory.generatePublic(publicKey))
-                .keyID("1").build();
-        JWKSet jwkSet = new JWKSet(rsaKey);
-        return new ImmutableJWKSet<>(jwkSet);
+        X509EncodedKeySpec publicKey = new X509EncodedKeySpec(Base64.getDecoder().decode(publicKeyString));
+        return NimbusJwtDecoder.withPublicKey((RSAPublicKey) keyFactory.generatePublic(publicKey)).build();
     }
-
 }
