@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -41,6 +42,7 @@ import java.util.Base64;
  * <p>
  */
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -60,9 +62,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
                                         jet
                                                 .decoder(jwtDecoder())
                                                 .jwtAuthenticationConverter(jwtAuthenticationConverter());
-                                    } catch (NoSuchAlgorithmException e) {
-                                        throw new RuntimeException(e);
-                                    } catch (InvalidKeySpecException e) {
+                                    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                                         throw new RuntimeException(e);
                                     }
                                 })
@@ -75,11 +75,11 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
 //                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests().antMatchers("/assets/**", "/webjars/**", "/login", "/business/dubbo/loginSuccessful")
-                    .permitAll()
+                .permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/assets/**"), new RegexRequestMatcher("/webjars/.*", HttpMethod.GET.name()))
-                    .permitAll()
+                .permitAll()
                 .anyRequest()
-                    .authenticated()
+                .authenticated()
                 .and().formLogin()
                 .and().logout().logoutUrl("/logout").logoutSuccessHandler(new LogoutSuccessHandlerImpl()).permitAll()
                 .and()

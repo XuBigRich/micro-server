@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Security;
@@ -55,7 +56,7 @@ public class BusinessController {
      * @Return:
      */
     @PostMapping("/buy2")
-    @PreAuthorize("hasAuthority('web1')")
+    @PreAuthorize("hasAuthority('web')")
     ObjectResponse handleBusiness2(@RequestBody BusinessDTO businessDTO) {
         log.info("请求参数：{}", businessDTO.toString());
         return businessService.handleBusiness2(businessDTO);

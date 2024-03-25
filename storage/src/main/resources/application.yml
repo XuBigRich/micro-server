@@ -46,9 +46,9 @@ seata:
   enabled: true
   application-id: ${spring.application.name}
   tx-service-group: storage-service-seata-service-group # 事务群组（可以每个应用独立取名，也可以使用相同的名字）
-#  service:
-#    vgroup-mapping:
-#      storage-service-seata-service-group: default
+  service:
+    vgroup-mapping:
+      storage-service-seata-service-group: default
   #      规范的通过 Nacos获取seata-server服务信息
   registry:
     type: nacos
@@ -56,7 +56,6 @@ seata:
       server-addr: localhost:8848
       group: SEATA_GROUP
       application: seata-server
-      namespace: 7b6ccc3a-704d-47c8-bb0f-2edfa03524db
       cluster: default
   config:
     type: nacos
