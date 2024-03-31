@@ -9,7 +9,8 @@ ext {
     logbackVersion = '1.1.10'
 }
 subprojects {
-    if (project.name != "common" && project.name != "gatway") {
+    def excludedProjects = ['common', 'gateway', 'common-core', 'client-auth-common']
+    if (!excludedProjects.contains(project.name)) {
         apply plugin: 'java'
         apply plugin: 'maven-publish'
 

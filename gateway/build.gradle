@@ -40,6 +40,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 //    implementation platform('org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR12') // 使用Spring Cloud版本管理器
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
@@ -49,6 +50,7 @@ dependencies {
 //    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }
 

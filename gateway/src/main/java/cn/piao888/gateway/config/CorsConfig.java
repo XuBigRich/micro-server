@@ -1,4 +1,4 @@
-package cn.piao888.gatway.config;
+package cn.piao888.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

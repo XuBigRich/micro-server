@@ -1,5 +1,10 @@
 server:
   port: 8080
+logging:
+  level:
+    org:
+      springframework:
+        DEBUG
 spring:
   application:
     name: gatway
@@ -7,13 +12,17 @@ spring:
     oauth2:
       client:
         registration:
-          mall:
-            client-id: mall-id
-            client-secret: mall-client-secret
+          myClient: # 这是一个你选择的客户端名称
+            clientId: messaging-client
+            clientSecret: rr998xhz1997
+            authorizationGrantType: authorization_code
+#            redirectUri: http%3A%2F%2Flocalhost%3A9999%2F #获取token后的 回调地址
+            redirectUri: http://localhost:9999/
+            scope: message.read,message.write
         provider:
-          mall:
-            authorization-uri: https://127.0.0.1:8080/user/oauth2/v1/authorize
-            token-uri: https://127.0.0.1:8080/user/oauth2/v1/token
+          myClient:
+            token-uri: http://127.0.0.1:8882/oauth2/token
+            authorization-uri: http://127.0.0.1:8882/oauth2/authorize
   redis:
     host: 127.0.0.1
     port: 6379

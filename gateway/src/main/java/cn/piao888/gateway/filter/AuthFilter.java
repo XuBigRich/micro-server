@@ -1,4 +1,4 @@
-package cn.piao888.gatway.filter;
+package cn.piao888.gateway.filter;
 
 import com.alibaba.cloud.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

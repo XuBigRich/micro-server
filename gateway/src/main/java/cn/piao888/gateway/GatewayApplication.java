@@ -1,15 +1,13 @@
-package cn.piao888.gatway;
+package cn.piao888.gateway;
 
-import io.netty.handler.logging.LoggingHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class GatwayApplication {
-
+public class GatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(GatwayApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 }

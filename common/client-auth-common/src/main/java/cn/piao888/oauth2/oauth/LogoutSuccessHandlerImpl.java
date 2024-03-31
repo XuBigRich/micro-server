@@ -1,8 +1,7 @@
 package cn.piao888.oauth2.oauth;
 
-import cn.piao888.common.utils.ServletUtils;
+import cn.piao888.oauth2.utils.ServletUtils;
 import com.alibaba.fastjson.JSON;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 

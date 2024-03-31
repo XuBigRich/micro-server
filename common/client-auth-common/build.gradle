@@ -29,7 +29,6 @@ repositories {
 
 dependencies {
     api "org.springframework.boot:spring-boot-starter-security"
-    api 'cn.piao888:common-core:0.0.1-SNAPSHOT'
     api "org.springframework.boot:spring-boot-starter-web"
     api "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
     api "org.slf4j:slf4j-api:${slf4jVersion}"
