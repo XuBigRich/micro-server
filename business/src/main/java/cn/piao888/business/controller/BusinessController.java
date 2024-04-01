@@ -3,12 +3,15 @@ package cn.piao888.business.controller;
 import cn.piao888.business.service.BusinessService;
 import cn.piao888.common.dto.BusinessDTO;
 import cn.piao888.common.response.ObjectResponse;
+import cn.piao888.oauth2.userDetail.UserInfo;
 import cn.piao888.oauth2.utils.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Security;
@@ -32,6 +35,7 @@ public class BusinessController {
 
     @GetMapping("/loginSuccessful")
     public void loginSuccessful() {
+        UserInfo authentication = SecurityUtils.getAuthentication();
         System.out.printf("请求成功");
     }
 
@@ -42,9 +46,8 @@ public class BusinessController {
      * @Return:
      */
     @PostMapping("/buy")
-    @PreAuthorize("hasAuthority('app')")
     ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO) {
-        Object authentication = SecurityUtils.getAuthentication();
+        UserInfo authentication = SecurityUtils.getAuthentication();
         log.info("请求参数：{}", businessDTO.toString());
         return businessService.handleBusiness(businessDTO);
     }

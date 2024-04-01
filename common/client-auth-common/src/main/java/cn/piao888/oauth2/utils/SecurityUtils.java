@@ -1,5 +1,6 @@
 package cn.piao888.oauth2.utils;
 
+import cn.piao888.oauth2.userDetail.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -108,7 +109,7 @@ public class SecurityUtils {
         return wwwAuthenticate.toString();
     }
 
-    public static Object getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public static UserInfo getAuthentication() {
+        return (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

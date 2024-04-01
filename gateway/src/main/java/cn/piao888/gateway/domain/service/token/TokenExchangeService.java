@@ -6,6 +6,7 @@ import cn.piao888.gateway.domain.modle.token.AuthorizationCode;
 import org.apache.http.impl.io.ChunkedInputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
@@ -18,6 +19,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import reactor.netty.http.client.HttpClient;
 
+import java.util.List;
+
 @Service
 public class TokenExchangeService {
 
@@ -28,8 +31,8 @@ public class TokenExchangeService {
     public TokenExchangeService(AuthTokenConfig authTokenConfig) {
         this.authTokenConfig = authTokenConfig;
         this.restTemplate = new RestTemplate();
-        this.restTemplate.getMessageConverters().add(new OAuth2AccessTokenResponseHttpMessageConverter());
-
+        final List<HttpMessageConverter<?>> messageConverters = this.restTemplate.getMessageConverters();
+        messageConverters.add(0,new OAuth2AccessTokenResponseHttpMessageConverter());
     }
 
     public AccessToken exchangeAuthorizationCodeForAccessToken(AuthorizationCode authorizationCode) {

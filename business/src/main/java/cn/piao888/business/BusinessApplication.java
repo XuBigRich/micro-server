@@ -7,6 +7,7 @@ import com.alibaba.nacos.api.naming.NamingService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,8 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import javax.annotation.PostConstruct;
 
 
-//@SpringBootApplication(scanBasePackages = "cn.piao888")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "cn.piao888")
+//@SpringBootApplication
 @Data
 public class BusinessApplication {
 
