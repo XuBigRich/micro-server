@@ -35,7 +35,7 @@ public class BusinessController {
 
     @GetMapping("/loginSuccessful")
     public void loginSuccessful() {
-        UserInfo authentication = SecurityUtils.getAuthentication();
+        Object authentication = SecurityUtils.getAuthentication();
         System.out.printf("请求成功");
     }
 
@@ -47,7 +47,7 @@ public class BusinessController {
      */
     @PostMapping("/buy")
     ObjectResponse handleBusiness(@RequestBody BusinessDTO businessDTO) {
-        UserInfo authentication = SecurityUtils.getAuthentication();
+        Object authentication = SecurityUtils.getAuthentication();
         log.info("请求参数：{}", businessDTO.toString());
         return businessService.handleBusiness(businessDTO);
     }

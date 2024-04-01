@@ -21,9 +21,10 @@ public class SecurityConfig {
                 // 为特定路径配置授权规则
                 .authorizeExchange(exchanges -> exchanges
                         // 允许对/auth/authToken路径的匿名访问
-                        .pathMatchers("/auth/authToken").permitAll()
+                        .pathMatchers("/auth/authToken")
+                        .permitAll()
                         // 其他请求都需要认证
-                        .anyExchange().authenticated()
+                        .anyExchange().permitAll()
                 )
                 // 支持OAuth2登录
                 .oauth2Login();

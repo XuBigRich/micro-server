@@ -109,7 +109,7 @@ public class SecurityUtils {
         return wwwAuthenticate.toString();
     }
 
-    public static UserInfo getAuthentication() {
-        return (UserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public static Object getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }
