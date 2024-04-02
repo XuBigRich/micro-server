@@ -1,11 +1,12 @@
-package cn.piao888.common.filter;
-
-import cn.piao888.common.constant.SecurityConstants;
-import cn.piao888.common.utils.SessionUtil;
-import cn.piao888.common.vo.CurrentUserVo;
+package cn.piao888.oauth2.filter;
+import cn.piao888.oauth2.constant.SecurityConstants;
+import cn.piao888.oauth2.utils.CurrentUserVo;
+import cn.piao888.oauth2.utils.SessionUtil;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.Filter;
@@ -14,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Enumeration;
 
 /**
@@ -39,16 +42,12 @@ public class TenantFilter extends OncePerRequestFilter {
             }
             //log.info("请求地址:{},请求头header：{}", request.getRequestURI(), hearJson.toJSONString());
             //当前登录人信息
-            String userId = request.getHeader(SecurityConstants.USER_ID_HEADER);
-            String userName = request.getHeader(SecurityConstants.USER_NAME_HEADER);
-            String nickName = request.getHeader(SecurityConstants.USER_NICK_NAME);
-            String requestDate = request.getHeader(SecurityConstants.REQUEST_DATE_HEADER);
-
-            CurrentUserVo userVo = new CurrentUserVo();
-            userVo.setId(Long.valueOf(userId));
-            userVo.setUserName(userName);
-            userVo.setNickName(nickName);
-            userVo.setRequestDate(requestDate);
+            Jwt principal = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            CurrentUserVo userVo =  new CurrentUserVo(Long.valueOf(principal.getClaim("sub"))
+                    , principal.getClaim("nickname")
+                    , principal.getClaim("username")
+                    , principal.getClaim("authorities")
+                    , LocalDateTime.ofInstant(principal.getClaim("exp"), ZoneId.of("+8")));
             SessionUtil.set(userVo);
             filterChain.doFilter(request, response);
         } finally {

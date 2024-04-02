@@ -1,4 +1,4 @@
-package cn.piao888.common.constant;
+package cn.piao888.oauth2.constant;
 
 /**
  * Security 权限常量

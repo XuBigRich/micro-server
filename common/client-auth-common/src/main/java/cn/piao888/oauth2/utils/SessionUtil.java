@@ -5,10 +5,9 @@
  * 日期:2019/1/315:47
  * Copyright
  */
-package cn.piao888.common.utils;
+package cn.piao888.oauth2.utils;
 
 
-import cn.piao888.common.vo.CurrentUserVo;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 

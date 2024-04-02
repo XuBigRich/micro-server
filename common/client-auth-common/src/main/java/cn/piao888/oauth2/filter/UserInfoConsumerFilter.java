@@ -1,16 +1,12 @@
-package cn.piao888.common.filter;
+package cn.piao888.oauth2.filter;
 
-import cn.piao888.common.constant.SecurityConstants;
-import cn.piao888.common.utils.SessionUtil;
-import cn.piao888.common.vo.CurrentUserVo;
+import cn.piao888.oauth2.constant.SecurityConstants;
+import cn.piao888.oauth2.utils.CurrentUserVo;
+import cn.piao888.oauth2.utils.SessionUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.dubbo.common.extension.Activate;
-import org.apache.dubbo.rpc.Filter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.rpc.Invocation;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.Result;
-import org.apache.dubbo.rpc.RpcException;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.rpc.*;
 
 /**
  * dubbo间 调用 赋值用

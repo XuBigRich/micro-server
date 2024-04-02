@@ -4,6 +4,9 @@ import cn.piao888.common.dto.CommodityDTO;
 import cn.piao888.common.dubbo.StorageDubboService;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
+import cn.piao888.oauth2.utils.CurrentUserVo;
+import cn.piao888.oauth2.utils.SecurityUtils;
+import cn.piao888.oauth2.utils.SessionUtil;
 import cn.piao888.storage.mapper.TStorageMapper;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,7 @@ public class TStorageServiceImpl implements StorageDubboService {
     @Override
     public ObjectResponse decreaseStorage(CommodityDTO commodityDTO) {
         log.info("开始全局事务，XID = " + RootContext.getXID());
+        CurrentUserVo authentication = SessionUtil.get();
         int storage = tStorageMapper.decreaseStorage(commodityDTO.getCommodityCode(), commodityDTO.getCount());
         ObjectResponse<Object> response = new ObjectResponse<>();
         if (storage > 0) {

@@ -1,5 +1,6 @@
 package cn.piao888.oauth2.oauth;//package cn.piao888.common.oauth;
 
+import cn.piao888.oauth2.filter.TenantFilter;
 import cn.piao888.oauth2.utils.SecurityUtils;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
@@ -21,6 +22,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
@@ -49,6 +51,7 @@ public class ResourceServerConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         resourcesServerSecurityFilterChain(http);
         authorityConfigure(http);
+        http.addFilterAfter(new TenantFilter(), FilterSecurityInterceptor.class);
     }
 
     public void resourcesServerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception {

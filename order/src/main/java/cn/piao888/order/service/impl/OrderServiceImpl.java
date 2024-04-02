@@ -1,6 +1,6 @@
 package cn.piao888.order.service.impl;
 
-import cn.piao888.common.utils.SessionUtil;
+import cn.piao888.oauth2.utils.SessionUtil;
 import cn.piao888.order.domain.TOrder;
 import cn.piao888.order.mapper.OrderMapper;
 import cn.piao888.order.service.OrderService;

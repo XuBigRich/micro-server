@@ -5,7 +5,7 @@ import cn.piao888.account.service.ITAccountService;
 import cn.piao888.common.dto.AccountDTO;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
-import cn.piao888.common.utils.SessionUtil;
+import cn.piao888.oauth2.utils.SessionUtil;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

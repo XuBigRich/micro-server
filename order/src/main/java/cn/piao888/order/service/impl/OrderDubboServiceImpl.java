@@ -6,7 +6,7 @@ import cn.piao888.common.dubbo.AccountDubboService;
 import cn.piao888.common.dubbo.OrderDubboService;
 import cn.piao888.common.enums.RspStatusEnum;
 import cn.piao888.common.response.ObjectResponse;
-import cn.piao888.common.utils.SessionUtil;
+import cn.piao888.oauth2.utils.SessionUtil;
 import cn.piao888.order.domain.TOrder;
 import cn.piao888.order.mapper.OrderMapper;
 import io.seata.core.context.RootContext;
