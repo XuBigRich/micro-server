@@ -8,6 +8,7 @@ ext {
     slf4jVersion = '1.7.22'
     logbackVersion = '1.1.10'
 }
+
 subprojects {
     def excludedProjects = ['common', 'gateway', 'common-core', 'client-auth-common']
     if (!excludedProjects.contains(project.name)) {

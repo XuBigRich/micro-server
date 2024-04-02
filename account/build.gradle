@@ -72,8 +72,8 @@ repositories {
 }
 
 dependencies {
-    implementation project(":common:client-auth-common")
-    implementation project(":common:common-core")
+    implementation 'cn.piao888:client-auth-common:0.0.1-SNAPSHOT'
+    implementation 'cn.piao888:common-core:0.0.1-SNAPSHOT'
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 /*    implementation 'com.google.protobuf:protobuf-java:3.19.4'
