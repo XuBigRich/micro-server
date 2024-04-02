@@ -46,7 +46,7 @@ public class OrderDubboServiceImpl implements OrderDubboService {
         //生成订单
         TOrder tOrder = new TOrder();
         BeanUtils.copyProperties(orderDTO, tOrder);
-        tOrder.setUserId(Optional.ofNullable(SessionUtil.get().getId()).orElse(1l));
+        tOrder.setUserId(SessionUtil.get().getId());
         tOrder.setCount(orderDTO.getOrderCount());
         tOrder.setAmount(orderDTO.getOrderAmount().doubleValue());
         try {
