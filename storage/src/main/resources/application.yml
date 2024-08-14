@@ -2,10 +2,6 @@ server:
   port: 8881
 
 spring:
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/micro-server?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
@@ -13,7 +9,7 @@ spring:
     password: rr998xhz1997
   application:
     name: storage
-mybatis:
+mybatis-plus:
   # 搜索指定包别名
   type-aliases-package: cn.piao888.storage.mapper
   # 配置mapper的扫描,我到所有的mapper.xml映射文件
@@ -41,6 +37,8 @@ dubbo:
     #    address: nacos://127.0.0.1:8848?namespace=7b6ccc3a-704d-47c8-bb0f-2edfa03524db
     #    address: nacos://127.0.0.1:8848?namespace=d6d8f8e5-f986-4856-a2e8-004e60cd373e
     address: nacos://127.0.0.1:8848
+    username: nacos
+    password: nacos
 
 seata:
   enabled: true
@@ -57,6 +55,8 @@ seata:
       group: SEATA_GROUP
       application: seata-server
       cluster: default
+      username: nacos
+      password: nacos
   config:
     type: nacos
     nacos:
@@ -64,5 +64,7 @@ seata:
       server-addr: localhost:8848
       dataId: seataServer.properties
       group: SEATA_GROUP
+      username: nacos
+      password: nacos
   enable-auto-data-source-proxy: true
   data-source-proxy-mode: AT

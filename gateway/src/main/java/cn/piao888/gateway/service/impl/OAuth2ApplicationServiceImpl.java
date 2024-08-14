@@ -21,4 +21,10 @@ public class OAuth2ApplicationServiceImpl implements OAuth2ApplicationService {
         AuthorizationCode authorizationCode = new AuthorizationCode(code);
         return tokenExchangeService.exchangeAuthorizationCodeForAccessToken(authorizationCode);
     }
+
+    @Override
+    public AccessToken refreshToken(String refreshToken) {
+//        return tokenExchangeService.refreshToken(refreshToken);
+        return null;
+    }
 }

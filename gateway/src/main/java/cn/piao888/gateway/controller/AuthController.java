@@ -23,4 +23,10 @@ public class AuthController {
         final AccessToken accessToken = oAuth2ApplicationService.exchangeCode(code);
         return accessToken;
     }
+
+    @GetMapping("/refreshToken")
+    public AccessToken refreshToken(String refreshToken) {
+        final AccessToken accessToken = oAuth2ApplicationService.refreshToken(refreshToken);
+        return accessToken;
+    }
 }
